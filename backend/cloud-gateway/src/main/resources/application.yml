@@ -1,0 +1,38 @@
+server:
+  port: 9555
+
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    #像极了nginx反向代理，但是网关拥有保护的功能，无法直接访问路由转发的地址
+    gateway:
+      routes:
+        #路由id唯一即可
+#        - id: provider_news_route
+#          uri: http://localhost:8088
+#          predicates:
+#            - Path=/
+
+        - id: consumer_user_route
+          uri: http://localhost:5088
+          predicates:
+            - Path=/consumer/**
+
+#        - id: provider_user_route
+#          uri: http://localhost:8099
+#          predicates:
+#            - Path=/
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      #注册服务中心url
+      defaultZone: http://localhost:7001/eureka
+  #服务实例名称
+  instance:
+    instance-id: getway-${server.port}
+    prefer-ip-address: true

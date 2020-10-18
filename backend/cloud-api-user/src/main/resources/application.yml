@@ -1,0 +1,24 @@
+server:
+  port: 8099
+
+
+spring:
+  application:
+    name: cloud-api-user
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/experiment?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: 123456
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      #注册服务中心url
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: provider-user-${server.port}
+    prefer-ip-address: true
+#基于注解mybatis不用配置

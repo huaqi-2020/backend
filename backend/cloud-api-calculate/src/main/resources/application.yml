@@ -1,0 +1,19 @@
+server:
+  port: 5088
+
+
+spring:
+  application:
+    name: cloud-api-calculate
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      #注册服务中心url
+      defaultZone: http://localhost:7001/eureka
+  #服务实例名称
+  instance:
+    instance-id: consumer-user-${server.port}
+    prefer-ip-address: true
