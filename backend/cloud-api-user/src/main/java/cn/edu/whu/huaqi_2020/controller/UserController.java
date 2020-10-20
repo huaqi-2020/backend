@@ -2,11 +2,9 @@ package cn.edu.whu.huaqi_2020.controller;
 
 import cn.edu.whu.huaqi_2020.entities.User;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -24,5 +22,17 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/user")
 public class UserController {
+
+    @ApiOperation(
+            value = "查询用户信息",
+            notes = "查询用户信息"
+    )
+    @RequestMapping(
+            value = "info",
+            method = RequestMethod.GET
+    )
+    public Map<String, Object> fetchUser(){
+        return null;
+    }
 
 }

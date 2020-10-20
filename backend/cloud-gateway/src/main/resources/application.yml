@@ -15,10 +15,11 @@ spring:
 #          predicates:
 #            - Path=/
 
-        - id: consumer_user_route
+        - id: api_user_route
+          #路由转发
           uri: http://localhost:5088
           predicates:
-            - Path=/consumer/**
+            - Path=/api/user/**
 
 #        - id: provider_user_route
 #          uri: http://localhost:8099

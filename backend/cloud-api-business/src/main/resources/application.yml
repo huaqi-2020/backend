@@ -8,7 +8,7 @@ spring:
     name: cloud-api-business
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/experiment?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+      url: jdbc:mysql://47.107.110.112:3306/huaqi?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
       username: root
       password: 123456
 
@@ -21,6 +21,6 @@ eureka:
       defaultZone: http://localhost:7001/eureka
   instance:
     #实例名称
-    instance-id: provider-news-${server.port}
+    instance-id: api-business-${server.port}
     prefer-ip-address: true
 #基于注解mybatis不用配置

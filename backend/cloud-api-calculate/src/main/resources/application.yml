@@ -15,5 +15,5 @@ eureka:
       defaultZone: http://localhost:7001/eureka
   #服务实例名称
   instance:
-    instance-id: consumer-user-${server.port}
+    instance-id: api-calculate-${server.port}
     prefer-ip-address: true
