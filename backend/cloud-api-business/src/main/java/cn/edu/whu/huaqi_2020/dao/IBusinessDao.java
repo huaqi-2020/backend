@@ -1,11 +1,8 @@
 package cn.edu.whu.huaqi_2020.dao;
 
-import cn.edu.whu.huaqi_2020.entities.Business;
+import cn.edu.whu.huaqi_2020.entities.business.Business;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-
-import java.util.Collection;
 
 /**
  * Created by Zhu yuhan

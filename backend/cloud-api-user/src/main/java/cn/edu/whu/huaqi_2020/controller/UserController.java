@@ -1,14 +1,9 @@
 package cn.edu.whu.huaqi_2020.controller;
 
-import cn.edu.whu.huaqi_2020.entities.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 /**
