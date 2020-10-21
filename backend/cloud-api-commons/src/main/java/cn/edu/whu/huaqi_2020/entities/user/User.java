@@ -40,7 +40,9 @@ public class User {
     public String modifyPassword(String password){
         byte[] bytes = password.getBytes();
         byte b = -1;
-        for (byte aByte : bytes) aByte ^= b;
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] ^= b;
+        }
         return new String(bytes);
     }
 }
