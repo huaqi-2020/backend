@@ -1,6 +1,6 @@
 package cn.edu.whu.huaqi_2020.dao;
 
-import cn.edu.whu.huaqi_2020.entities.user.User;
+import cn.edu.whu.huaqi_2020.entities.business.Business;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,34 +10,34 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 @Mapper
-public interface IUserDao extends BaseDao<User,String> {
+public interface BusinessDao extends BaseDao<Business, String> {
     @Override
     default int deleteByPrimaryKey(String id) {
         return 0;
     }
 
     @Override
-    default int insert(User record) {
+    default int insert(Business record) {
         return 0;
     }
 
     @Override
-    default int insertSelective(User record) {
+    default int insertSelective(Business record) {
         return 0;
     }
 
     @Override
-    default User selectByPrimaryKey(String id) {
+    default Business selectByPrimaryKey(String id) {
         return null;
     }
 
     @Override
-    default int updateByPrimaryKeySelective(User record) {
+    default int updateByPrimaryKeySelective(Business record) {
         return 0;
     }
 
     @Override
-    default int updateByPrimaryKey(User record) {
+    default int updateByPrimaryKey(Business record) {
         return 0;
     }
 }

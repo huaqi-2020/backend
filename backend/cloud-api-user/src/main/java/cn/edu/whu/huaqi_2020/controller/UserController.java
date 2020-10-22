@@ -1,5 +1,7 @@
 package cn.edu.whu.huaqi_2020.controller;
 
+import cn.edu.whu.huaqi_2020.entities.user.User;
+import cn.edu.whu.huaqi_2020.entities.user.UserDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,7 @@ public class UserController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchUser(){
-        return null;
+        return UserDO.buildMapper(new User(null,null,null,null,"zyh0705123456",null,null,null,null)).buildMap();
     }
 
 }
