@@ -21,7 +21,7 @@ public interface BaseDao<Model, PK extends Serializable> {
     Model selectByPrimaryKey(PK id);
 
     //查询指定字段全部符合的结果
-    List<Model> selectByExample(String var);
+    List<Model> selectByExample(Model record);
 
 //    int updateByExampleSelective(@Param("record") Model record, @Param("example") E example);
 //

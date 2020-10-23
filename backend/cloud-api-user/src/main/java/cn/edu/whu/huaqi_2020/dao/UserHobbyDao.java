@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * Date:2020/9/28 10:42
  **/
 @Repository
-public interface UseHobbyDao extends BaseDao<UserHobby,String> {
+public interface UserHobbyDao extends BaseDao<UserHobby,String> {
 
 }

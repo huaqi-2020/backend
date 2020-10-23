@@ -16,6 +16,6 @@ import lombok.*;
 public class Owner {
 
     private String id;
-    private String clazzId;
+    private String businessId;
     private String name;
 }

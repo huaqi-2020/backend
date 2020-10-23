@@ -1,10 +1,13 @@
 package cn.edu.whu.huaqi_2020.entities.user;
 
+import cc.eamon.open.mapping.mapper.Mapper;
+
 /**
  * Author: Zhu yuhan
  * Email: zhuyuhan2333@qq.com
  * Date: 2020/10/21 23:21
  **/
+@Mapper
 public enum Hobby {
     HOBBY1("1","hobby1"),
     HOBBY2("2","hobby2"),
@@ -24,5 +27,13 @@ public enum Hobby {
 
     public String getName() {
         return name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

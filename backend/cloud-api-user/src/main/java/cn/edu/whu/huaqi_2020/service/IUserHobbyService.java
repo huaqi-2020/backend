@@ -1,7 +1,6 @@
 package cn.edu.whu.huaqi_2020.service;
 
-import cn.edu.whu.huaqi_2020.dao.dataObject.UserDO;
-import cn.edu.whu.huaqi_2020.entities.user.User;
+import cn.edu.whu.huaqi_2020.entities.user.UserHobby;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,13 +11,13 @@ import java.util.Map;
  * Created by Zhu yuhan
  * Date:2020/9/28 16:21
  **/
-public interface IUserService extends BaseService<UserDO,String>{
+public interface IUserHobbyService extends BaseService<UserHobby,String> {
 
     default int deleteByPrimaryKey(String id) {
         return 0;
     }
 
-    default Map<String, Object> insert(User user) {
+    default Map<String, Object> insert(UserHobby record) {
         return new HashMap<>();
     }
 
@@ -26,15 +25,15 @@ public interface IUserService extends BaseService<UserDO,String>{
         return new HashMap<>();
     }
 
-    default List<Map<String, Object>> selectByExample(UserDO record) {
+    default List<Map<String, Object>> selectByExample(UserHobby record) {
         return new LinkedList<>();
     }
 
-    default Map<String, Object> updateByPrimaryKeySelective(UserDO user) {
+    default Map<String, Object> updateByPrimaryKeySelective(UserHobby record) {
         return new HashMap<>();
     }
 
-    default Map<String, Object> updateByPrimaryKey(UserDO user) {
+    default Map<String, Object> updateByPrimaryKey(UserHobby record) {
         return new HashMap<>();
     }
 }

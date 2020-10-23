@@ -1,5 +1,6 @@
 package cn.edu.whu.huaqi_2020.entities.user;
 
+import cc.eamon.open.mapping.mapper.Mapper;
 import lombok.*;
 
 /**
@@ -12,6 +13,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Mapper
 public class UserHobby {
 
     private String id;

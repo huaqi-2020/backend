@@ -16,7 +16,7 @@
         select * from user where id = #{id}
     </select>
 
-<!--    动态sql可变字段查询，但只支持一个字段不为null，这里使用choose when标签应该也可行-->
+<!--    动态sql可变字段查询-->
     <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO" resultMap="UserResultMap">
         select * from user
         <where>
@@ -24,22 +24,22 @@
                 id = #{id}
             </if>
             <if test="nickname != null">
-                nickname = #{nickname}
+                AND nickname = #{nickname}
             </if>
             <if test="password != null">
-                password = #{password}
+                AND password = #{password}
             </if>
             <if test="headUrl != null">
-                head_url = #{headUrl}
+                AND head_url = #{headUrl}
             </if>
             <if test="role != null">
-                role = #{role}
+                AND role = #{role}
             </if>
             <if test="profession != null">
-                profession = #{profession}
+                AND profession = #{profession}
             </if>
             <if test="consume != null">
-                consume = #{consume}
+                AND consume = #{consume}
             </if>
         </where>
     </select>
@@ -52,7 +52,7 @@
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">
         update user set nickname=#{nickname},password=#{password},head_url=#{headUrl},
-        role=#{role},profession=#{profession},consume=#{consume}
+        role=#{role},profession=#{profession},consume=#{consume} where id=#{id}
     </update>
 
 <!--    部分字段更新-->

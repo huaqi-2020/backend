@@ -41,24 +41,24 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<Map<String,Object>> selectByExample(String var) {
+    public List<Map<String,Object>> selectByExample(UserDO userDO) {
         List<Map<String,Object>> users = new LinkedList<>();
-        List<UserDO> userDOS = userDao.selectByExample(var);
-        for (UserDO userDO : userDOS) {
-            users.add(UserData.buildMap(UserData.convert(userDO, new User())));
+        List<UserDO> userDOS = userDao.selectByExample(userDO);
+        for (UserDO user : userDOS) {
+            users.add(UserData.buildMap(UserData.convert(user, new User())));
         }
         return users;
     }
 
     @Override
-    public Map<String,Object> updateByPrimaryKeySelective(User user) {
-        userDao.updateByPrimaryKeySelective(UserData.convert(user,new UserDO()));
-        return UserData.buildMap(user);
+    public Map<String,Object> updateByPrimaryKeySelective(UserDO userDO) {
+        userDao.updateByPrimaryKeySelective(userDO);
+        return UserData.buildMap(UserData.convert(userDO,new User()));
     }
 
     @Override
-    public Map<String,Object> updateByPrimaryKey(UserDO record) {
-        userDao.updateByPrimaryKey(record);
-        return UserData.buildMap(UserData.convert(record,new User()));
+    public Map<String,Object> updateByPrimaryKey(UserDO userDO) {
+        userDao.updateByPrimaryKey(userDO);
+        return UserData.buildMap(UserData.convert(userDO,new User()));
     }
 }
