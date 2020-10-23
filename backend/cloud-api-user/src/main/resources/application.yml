@@ -1,7 +1,6 @@
 server:
   port: 8099
 
-
 spring:
   application:
     name: cloud-api-user
@@ -22,6 +21,12 @@ eureka:
     instance-id: api-user-${server.port}
     prefer-ip-address: true
 
-  mybatis:
-    mapper-locations: classpath:cn.edu.whu.huaqi_2020/*.xml
+logging:
+  level:
+    cn.edu.whu.huaqi_2020: debug
+
+mybatis:
+  mapper-locations: classpath:**/*.xml
+
+#debug: true
 #基于注解mybatis不用配置

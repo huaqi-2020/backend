@@ -1,11 +1,8 @@
 package cn.edu.whu.huaqi_2020.entities.user;
 
 import cc.eamon.open.mapping.mapper.*;
+import cn.edu.whu.huaqi_2020.dao.dataObject.UserDO;
 import lombok.*;
-
-import java.security.SecureRandom;
-import java.sql.Date;
-
 /**
  * Created by Zhu yuhan
  * Date:2020/9/28 10:53
@@ -16,8 +13,12 @@ import java.sql.Date;
 @Setter
 @ToString
 @Mapper(
-        value = {"data",}, //MapperId
-        name = {"UserDO",} //类名
+        value = {"data"}, //MapperId
+        name = {"UserData"} //类名
+)
+@MapperConvert(
+        value = {"data"},
+        type = {UserDO.class}
 )
 public class User {
 

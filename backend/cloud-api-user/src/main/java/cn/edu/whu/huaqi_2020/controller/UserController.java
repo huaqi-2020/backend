@@ -1,9 +1,11 @@
 package cn.edu.whu.huaqi_2020.controller;
 
 import cn.edu.whu.huaqi_2020.entities.user.User;
-import cn.edu.whu.huaqi_2020.entities.user.UserDO;
+import cn.edu.whu.huaqi_2020.service.common.UserCommonService;
+import cn.edu.whu.huaqi_2020.service.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -20,6 +22,12 @@ import java.util.Map;
 @RequestMapping("api/user")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserCommonService userCommonService;
+
     @ApiOperation(
             value = "查询用户信息",
             notes = "查询用户信息"
@@ -28,8 +36,8 @@ public class UserController {
             value = "info",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchUser(){
-        return null;
+    public Map<String, Object> fetchUser(@RequestParam("id") String id){
+        return userService.selectByPrimaryKey(id);
     }
 
 }

@@ -1,7 +1,6 @@
 package cn.edu.whu.huaqi_2020.dao;
 
 import cn.edu.whu.huaqi_2020.entities.user.Hobby;
-import cn.edu.whu.huaqi_2020.entities.user.UserDO;
 import org.springframework.stereotype.Repository;
 
 /**
