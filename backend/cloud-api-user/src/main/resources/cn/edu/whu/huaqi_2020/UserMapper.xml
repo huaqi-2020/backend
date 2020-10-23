@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.UserDao">
+    <resultMap id="UserResultMap" type="cn.edu.whu.huaqi_2020.entities.user.UserDO">
+        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="nickname" jdbcType="VARCHAR" property="nickName"></result>
+        <result column="password" jdbcType="VARCHAR" property="password"></result>
+        <result column="head_url" jdbcType="VARCHAR" property="headUrl"></result>
+        <result column="role" jdbcType="INT" property="role"></result>
+        <result column="profession" jdbcType="VARCHAR" property="profession"></result>
+        <result column="consume" jdbcType="VARCHAR" property="consume"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="UserResultMap">
+        select * from user where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询，但只支持一个字段不为null，这里使用choose when标签应该也可行-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.user.UserDO" resultMap="UserResultMap">
+        select * from user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname}
+            </if>
+            <if test="password != null">
+                password = #{password}
+            </if>
+            <if test="headUrl != null">
+                head_url = #{headUrl}
+            </if>
+            <if test="role != null">
+                role = #{role}
+            </if>
+            <if test="profession != null">
+                profession = #{profession}
+            </if>
+            <if test="consume != null">
+                consume = #{consume}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.user.UserDO">
+        insert into user(nickname,password,head_url,role,profession,consume) values
+        (#{nickname},#{password},#{headUrl},#{role},#{profession},#{consume})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.user.UserDO">
+        update user set nickname=#{nickname},password=#{password},head_url=#{headUrl},
+        role=#{role},profession=#{profession},consume=#{consume}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.user.UserDO">
+        update user
+        <set>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="headUrl != null">
+                headUrl = #{headUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                role = #{role,jdbcType=INT},
+            </if>
+            <if test="profession != null">
+                profession = #{profession,jdbcType=VARCHAR},
+            </if>
+            <if test="consume != null">
+                consume = #{consume,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from user where id = #{id}
+    </delete>
+
+</mapper>

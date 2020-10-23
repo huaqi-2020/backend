@@ -14,11 +14,14 @@ public interface BaseDao<Model, PK extends Serializable> {
 
     int insert(Model record);
 
-    int insertSelective(Model record);
+//    int insertSelective(Model record);
 
 //    List<Model> selectByExample(E example);
 
     Model selectByPrimaryKey(PK id);
+
+    //查询指定字段全部符合的结果
+    List<Model> selectByExample(String var);
 
 //    int updateByExampleSelective(@Param("record") Model record, @Param("example") E example);
 //

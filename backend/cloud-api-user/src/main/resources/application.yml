@@ -21,4 +21,7 @@ eureka:
   instance:
     instance-id: api-user-${server.port}
     prefer-ip-address: true
+
+  mybatis:
+    mapper-locations: classpath:cn.edu.whu.huaqi_2020/*.xml
 #基于注解mybatis不用配置

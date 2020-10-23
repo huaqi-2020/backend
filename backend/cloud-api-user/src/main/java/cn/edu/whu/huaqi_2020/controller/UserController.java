@@ -29,7 +29,7 @@ public class UserController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchUser(){
-        return UserDO.buildMapper(new User(null,null,null,null,"zyh0705123456",null,null,null,null)).buildMap();
+        return null;
     }
 
 }
