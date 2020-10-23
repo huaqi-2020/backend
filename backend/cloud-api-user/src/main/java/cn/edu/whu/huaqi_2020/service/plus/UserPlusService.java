@@ -1,4 +1,4 @@
-package cn.edu.whu.huaqi_2020.service.common;
+package cn.edu.whu.huaqi_2020.service.plus;
 
 import cn.edu.whu.huaqi_2020.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  **/
 //编写其他非CRUD业务逻辑
 @Service
-public class UserCommonService {
+public class UserPlusService {
 
     @Autowired
     private UserService userService;

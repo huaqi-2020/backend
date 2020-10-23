@@ -1,7 +1,6 @@
 package cn.edu.whu.huaqi_2020.controller;
 
-import cn.edu.whu.huaqi_2020.entities.user.User;
-import cn.edu.whu.huaqi_2020.service.common.UserCommonService;
+import cn.edu.whu.huaqi_2020.service.plus.UserPlusService;
 import cn.edu.whu.huaqi_2020.service.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserCommonService userCommonService;
+    private UserPlusService userPlusService;
 
     @ApiOperation(
             value = "查询用户信息",
