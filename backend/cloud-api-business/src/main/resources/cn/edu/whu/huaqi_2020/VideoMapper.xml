@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.VideoDao">
+    <resultMap id="VideoResultMap" type="cn.edu.whu.huaqi_2020.entities.business.Video">
+        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+        <result column="owner_id" jdbcType="VARCHAR" property="ownerId"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="VideoResultMap">
+        select * from video where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.business.Video resultMap="VideoResultMap">
+        select * from video
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="businessId != null">
+                AND owner_id = #{ownerId}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.business.Video">
+        insert into video(id,name,owner_id) values(#{id},#{name},#{ownerId})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.business.Video">
+        update video set name=#{name},owner_id=#{ownerId} where id=#{id}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.Video">
+        update video
+        <set>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from video where id = #{id}
+    </delete>
+
+</mapper>

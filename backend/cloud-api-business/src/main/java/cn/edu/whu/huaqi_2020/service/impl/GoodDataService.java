@@ -22,7 +22,7 @@ public class GoodDataService implements IGoodDataService {
     private GoodDataDao goodDataDao;
 
     @Override
-    public int deleteByPrimaryKey(String id) {
+    public int deleteByPrimaryKey(Integer id) {
         return goodDataDao.deleteByPrimaryKey(id);
     }
 
@@ -33,7 +33,7 @@ public class GoodDataService implements IGoodDataService {
     }
 
     @Override
-    public Map<String, Object> selectByPrimaryKey(String id) {
+    public Map<String, Object> selectByPrimaryKey(Integer id) {
         return goodDataDao.selectByPrimaryKey(id).buildMap();
     }
 

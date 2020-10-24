@@ -1,5 +1,6 @@
 package cn.edu.whu.huaqi_2020.entities.business;
 
+import cc.eamon.open.mapping.mapper.Mapper;
 import lombok.*;
 
 /**
@@ -12,9 +13,10 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Clazz {
+@Mapper
+public class Video {
 
     private String id;
-    private String businessId;
+    private String ownerId;
     private String name;
 }

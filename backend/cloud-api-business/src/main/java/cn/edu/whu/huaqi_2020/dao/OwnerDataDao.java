@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * Date: 2020/10/22 10:27
  **/
 @Repository
-public interface OwnerDataDao extends BaseDao<OwnerData,String>{
+public interface OwnerDataDao extends BaseDao<OwnerData,Integer>{
 }

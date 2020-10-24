@@ -1,7 +1,6 @@
 package cn.edu.whu.huaqi_2020.dao;
 
-import cn.edu.whu.huaqi_2020.entities.business.Clazz;
-import cn.edu.whu.huaqi_2020.entities.data.ClazzData;
+import cn.edu.whu.huaqi_2020.entities.data.VideoData;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * Date: 2020/10/22 10:27
  **/
 @Repository
-public interface ClassDataDao extends BaseDao<ClazzData,String>{
+public interface VideoDataDao extends BaseDao<VideoData,Integer>{
 }

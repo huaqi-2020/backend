@@ -30,8 +30,8 @@
 
     <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.user.UserHobby">
-        insert into user2hobby(user_id,hobby_id) values
-        (#{userId},#{hobbyId})
+        insert into user2hobby(id,user_id,hobby_id) values
+        (#{id},#{userId},#{hobbyId})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.user.UserHobby">

@@ -26,5 +26,5 @@ eureka:
     prefer-ip-address: true
 
 mybatis:
-  mapper-locations: classpath:cn.edu.whu.huaqi_2020/*.xml
+  mapper-locations: classpath:**/*Mapper.xml
 #基于注解mybatis不用配置

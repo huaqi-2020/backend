@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.BusinessSpecial2Dao">
+    <resultMap id="B2ResultMap" type="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2">
+        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="business_id" jdbcType="VARCHAR" property="businessId"></result>
+        <result column="money" jdbcType="DOUBLE" property="money"></result>
+        <result column="play_num" jdbcType="INTEGER" property="playNum"></result>
+        <result column="date" jdbcType="DATE" property="date"></result>
+        <result column="visitor" jdbcType="INTEGER" property="visitor"></result>
+        <result column="search" jdbcType="INTEGER" property="search"></result>
+        <result column="rate" jdbcType="DOUBLE" property="rate"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="B2ResultMap">
+        select * from business_special2 where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2" resultMap="B2ResultMap">
+        select * from business_special2
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="businessId != null">
+                AND business_id = #{businessId}
+            </if>
+            <if test="money != null">
+                AND money = #{money}
+            </if>
+            <if test="playNum != null">
+                AND play_num = #{playNum}
+            </if>
+            <if test="date != null">
+                AND date = #{date}
+            </if>
+            <if test="visitor != null">
+                AND visitor = #{visitor}
+            </if>
+            <if test="search != null">
+                AND search = #{search}
+            </if>
+            <if test="rate != null">
+                AND rate = #{rate}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2">
+        insert into business_special2(id,business_id,money,play_num,date,visitor,search,rate) values
+        (#{id},#{businessId},#{money},#{playNum},#{date},#{visitor},#{search},#{rate})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2">
+        update business_special2 set business_id=#{businessId},money=#{money},play_num=#{playNum},
+        date=#{date},visitor=#{visitor},search=#{search},rate=#{rate} where id=#{id}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2">
+        update business_special2
+        <set>
+            <if test="businessId != null">
+                business_id = #{businessId}
+            </if>
+            <if test="money != null">
+                money = #{money}
+            </if>
+            <if test="playNum != null">
+                play_num = #{playNum}
+            </if>
+            <if test="date != null">
+                date = #{date}
+            </if>
+            <if test="visitor != null">
+                visitor = #{visitor}
+            </if>
+            <if test="search != null">
+                search = #{search}
+            </if>
+            <if test="rate != null">
+                rate = #{rate}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from business_special2 where id = #{id}
+    </delete>
+
+</mapper>

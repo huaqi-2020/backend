@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.StoreDao">
+    <resultMap id="StoreResultMap" type="cn.edu.whu.huaqi_2020.entities.business.Store">
+        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+        <result column="business_id" jdbcType="VARCHAR" property="businessId"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="StoreResultMap">
+        select * from store where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.business.Store" resultMap="StoreResultMap">
+        select * from store
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="businessId != null">
+                AND business_id = #{businessId}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.business.Store">
+        insert into store(id,name,business_id) values(#{id},#{name},#{businessId})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.business.Store">
+        update store set name=#{name},business_id=#{businessId} where id=#{id}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.Store">
+        update store
+        <set>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="businessId != null">
+                business_id = #{businessId}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from store where id = #{id}
+    </delete>
+
+</mapper>

@@ -33,9 +33,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.user.Hobby">
         update hobby
         <set>
-            <if test="id != null">
-                id = #{id,jdbcType=VARCHAR},
-            </if>
+<!--            <if test="id != null">-->
+<!--                id = #{id,jdbcType=VARCHAR},-->
+<!--            </if>-->
             <if test="name != null">
                 `name` = #{name,jdbcType=VARCHAR},
             </if>

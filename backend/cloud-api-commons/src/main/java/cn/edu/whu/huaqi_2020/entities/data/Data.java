@@ -18,25 +18,33 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Mapper(
-        value = {"clazzData","goodData","storeData","ownerData",},
-        name = {"ClazzData","GoodData","StoreData","OwnerData",}
+        value = {"videoData","goodData","storeData","ownerData",},
+        name = {"VideoData","GoodData","StoreData","OwnerData",}
+)
+@MapperExtra(
+        value = {"goodData","storeData","videoData","videoData","videoData"},
+        name = {"singleMoney","visit","collects","coins","thumbs"},
+        type = {Double.class,Integer.class,Integer.class,Integer.class,Integer.class},
+        typeArgs = {"null","null","null","null","null"},
+        list = {false,false,false,false,false},
+        defaultValues = {"0.0","0","0","0","0"}
 )
 public class Data {
 
-    private String id;
+    private Integer id;
     @MapperRename(
-            value = {"clazzData","goodData","storeData","ownerData"},
-            name = {"clazzId","goodId","storeId","ownerId"}
+            value = {"videoData","goodData","storeData","ownerData"},
+            name = {"videoId","goodId","storeId","ownerId"}
     )
     private String foreignId;
     private Date date;
     @MapperRename(
-            value = {"clazzData","goodData","storeData","ownerData"},
-            name = {"playMoney","saleMoney","saleMoney","playMoney"}
+            value = {"goodData","storeData","ownerData"},
+            name = {"saleMoney","saleMoney","playMoney"}
     )
     private Double money;
     @MapperRename(
-            value = {"clazzData","goodData","storeData","ownerData"},
+            value = {"videoData","goodData","storeData","ownerData"},
             name = {"playNum","saleNum","saleNum","playNum"}
     )
     private Long num;

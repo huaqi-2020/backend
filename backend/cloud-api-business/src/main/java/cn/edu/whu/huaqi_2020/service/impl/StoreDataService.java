@@ -22,7 +22,7 @@ public class StoreDataService implements IStoreDataService {
     private StoreDataDao storeDataDao;
 
     @Override
-    public int deleteByPrimaryKey(String id) {
+    public int deleteByPrimaryKey(Integer id) {
         return storeDataDao.deleteByPrimaryKey(id);
     }
 
@@ -33,7 +33,7 @@ public class StoreDataService implements IStoreDataService {
     }
 
     @Override
-    public Map<String, Object> selectByPrimaryKey(String id) {
+    public Map<String, Object> selectByPrimaryKey(Integer id) {
         return storeDataDao.selectByPrimaryKey(id).buildMap();
     }
 

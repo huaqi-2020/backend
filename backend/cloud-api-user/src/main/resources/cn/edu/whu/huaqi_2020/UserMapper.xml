@@ -46,8 +46,8 @@
 
     <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">
-        insert into user(nickname,password,head_url,role,profession,consume) values
-        (#{nickname},#{password},#{headUrl},#{role},#{profession},#{consume})
+        insert into user(id,nickname,password,head_url,role,profession,consume) values
+        (#{id},#{nickname},#{password},#{headUrl},#{role},#{profession},#{consume})
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">

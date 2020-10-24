@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * Date: 2020/10/22 10:27
  **/
 @Repository
-public interface GoodDataDao extends BaseDao<GoodData,String>{
+public interface GoodDataDao extends BaseDao<GoodData,Integer>{
 }

@@ -2,87 +2,68 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.whu.huaqi_2020.dao.UserDao">
-    <resultMap id="UserResultMap" type="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.BusinessDao">
+    <resultMap id="BusinessResultMap" type="cn.edu.whu.huaqi_2020.entities.business.Business">
         <result column="id" jdbcType="VARCHAR" property="id"></result>
-        <result column="nickname" jdbcType="VARCHAR" property="nickName"></result>
-        <result column="password" jdbcType="VARCHAR" property="password"></result>
-        <result column="head_url" jdbcType="VARCHAR" property="headUrl"></result>
-        <result column="role" jdbcType="INTEGER" property="role"></result>
-        <result column="profession" jdbcType="VARCHAR" property="profession"></result>
-        <result column="consume" jdbcType="VARCHAR" property="consume"></result>
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+        <result column="user_num" jdbcType="INTEGER" property="userNum"></result>
+        <result column="type" jdbcType="VARCHAR" property="type"></result>
     </resultMap>
-    <select id="selectByPrimaryKey" resultMap="UserResultMap">
-        select * from user where id = #{id}
+    <select id="selectByPrimaryKey" resultMap="BusinessResultMap">
+        select * from business where id = #{id}
     </select>
 
 <!--    动态sql可变字段查询-->
-    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO" resultMap="UserResultMap">
-        select * from user
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.business.Business" resultMap="BusinessResultMap">
+        select * from business
         <where>
             <if test="id != null">
                 id = #{id}
             </if>
-            <if test="nickname != null">
-                AND nickname = #{nickname}
+            <if test="name != null">
+                AND name = #{name}
             </if>
-            <if test="password != null">
-                AND password = #{password}
+            <if test="type != null">
+                AND type = #{type}
             </if>
-            <if test="headUrl != null">
-                AND head_url = #{headUrl}
-            </if>
-            <if test="role != null">
-                AND role = #{role}
-            </if>
-            <if test="profession != null">
-                AND profession = #{profession}
-            </if>
-            <if test="consume != null">
-                AND consume = #{consume}
+            <if test="userNum != null">
+                AND user_num = #{userNum}
             </if>
         </where>
     </select>
 
     <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">
-        insert into user(nickname,password,head_url,role,profession,consume) values
-        (#{nickname},#{password},#{headUrl},#{role},#{profession},#{consume})
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.business.Business">
+        insert into business(id,name,type,user_num) values
+        (#{id},#{name},#{type},#{userNum})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">
-        update user set nickname=#{nickname},password=#{password},head_url=#{headUrl},
-        role=#{role},profession=#{profession},consume=#{consume} where id=#{id}
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.business.Business">
+        update business set name=#{name},type=#{type},user_num=#{userNum} where id=#{id}
     </update>
 
 <!--    部分字段更新-->
-    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.dao.dataObject.UserDO">
-        update user
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.Business">
+        update business
         <set>
-            <if test="nickname != null">
-                nickname = #{nickname,jdbcType=VARCHAR},
+<!--            <if test="id != null">-->
+<!--                id = #{id,jdbcType=VARCHAR},-->
+<!--            </if>-->
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
-                `password` = #{password,jdbcType=VARCHAR},
+            <if test="userNum != null">
+                user_num = #{userNum,jdbcType=INTEGER},
             </if>
-            <if test="headUrl != null">
-                headUrl = #{headUrl,jdbcType=VARCHAR},
-            </if>
-            <if test="role != null">
-                role = #{role,jdbcType=INTEGER},
-            </if>
-            <if test="profession != null">
-                profession = #{profession,jdbcType=VARCHAR},
-            </if>
-            <if test="consume != null">
-                consume = #{consume,jdbcType=VARCHAR},
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
     <delete id="deleteByPrimaryKey">
-        delete from user where id = #{id}
+        delete from business where id = #{id}
     </delete>
 
 </mapper>

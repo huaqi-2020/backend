@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.VideoDataDao">
+    <resultMap id="VDResultMap" type="cn.edu.whu.huaqi_2020.entities.data.VideoData">
+        <result column="id" jdbcType="INTEGER" property="id"></result>
+        <result column="video_id" jdbcType="VARCHAR" property="videoId"></result>
+        <result column="money" jdbcType="DOUBLE" property="money"></result>
+        <result column="play_num" jdbcType="INTEGER" property="playNum"></result>
+        <result column="date" jdbcType="DATE" property="date"></result>
+        <result column="thumbs" jdbcType="INTEGER" property="thumbs"></result>
+        <result column="collects" jdbcType="INTEGER" property="collects"></result>
+        <result column="coins" jdbcType="INTEGER" property="coins"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="VDResultMap">
+        select * from video_data where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.data.VideoData" resultMap="VDResultMap">
+        select * from video_data
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="ownerId != null">
+                AND video_id = #{videoId}
+            </if>
+            <if test="money != null">
+                AND money = #{money}
+            </if>
+            <if test="playNum != null">
+                AND play_num = #{playNum}
+            </if>
+            <if test="date != null">
+                AND date = #{date}
+            </if>
+            <if test="thumbs != null">
+                AND thumbs = #{thumbs}
+            </if>
+            <if test="collects != null">
+                AND collects = #{collects}
+            </if>
+            <if test="coins != null">
+                AND coins = #{coins}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.data.VideoData">
+        insert into video_data(id,video_id,money,play_num,date,thumbs,collects,coins) values
+        (#{id},#{videoId},#{money},#{playNum},#{date},#{thumbs},#{collects},#{coins})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.data.VideoData">
+        update video_data set video_id=#{videoId},money=#{money},play_num=#{playNum},
+        date=#{date},thumbs=#{thumbs},collects=#{collects},coins=#{coins} where id=#{id}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.data.VideoData">
+        update video_data
+        <set>
+            <if test="ownerId != null">
+                video_id = #{videoId}
+            </if>
+            <if test="money != null">
+                money = #{money}
+            </if>
+            <if test="playNum != null">
+                play_num = #{playNum}
+            </if>
+            <if test="date != null">
+                date = #{date}
+            </if>
+            <if test="thumbs != null">
+                thumbs = #{thumbs}
+            </if>
+            <if test="collects != null">
+                collects = #{collects}
+            </if>
+            <if test="coins != null">
+                coins = #{coins}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from video_data where id = #{id}
+    </delete>
+
+</mapper>

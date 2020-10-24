@@ -22,7 +22,7 @@ public class OwnerDataService implements IOwnerDataService {
     private OwnerDataDao ownerDataDao;
 
     @Override
-    public int deleteByPrimaryKey(String id) {
+    public int deleteByPrimaryKey(Integer id) {
         return ownerDataDao.deleteByPrimaryKey(id);
     }
 
@@ -33,7 +33,7 @@ public class OwnerDataService implements IOwnerDataService {
     }
 
     @Override
-    public Map<String, Object> selectByPrimaryKey(String id) {
+    public Map<String, Object> selectByPrimaryKey(Integer id) {
         return ownerDataDao.selectByPrimaryKey(id).buildMap();
     }
 

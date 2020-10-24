@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.GoodDao">
+    <resultMap id="GoodResultMap" type="cn.edu.whu.huaqi_2020.entities.business.Good">
+        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="name" jdbcType="VARCHAR" property="name"></result>
+        <result column="store_id" jdbcType="VARCHAR" property="storeId"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="GoodResultMap">
+        select * from good where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.business.Good" resultMap="GoodResultMap">
+        select * from good
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="storeId != null">
+                AND store_id = #{storeId}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.business.Good">
+        insert into good(id,name,store_id) values(#{id},#{name},#{storeId})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.business.Good">
+        update good set name=#{name},store_id=#{storeId} where id=#{id}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.Good">
+        update good
+        <set>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from good where id = #{id}
+    </delete>
+
+</mapper>

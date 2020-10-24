@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.whu.huaqi_2020.dao.StoreDataDao">
+    <resultMap id="SDResultMap" type="cn.edu.whu.huaqi_2020.entities.data.StoreData">
+        <result column="id" jdbcType="INTEGER" property="id"></result>
+        <result column="store_id" jdbcType="VARCHAR" property="storeId"></result>
+        <result column="money" jdbcType="DOUBLE" property="money"></result>
+        <result column="num" jdbcType="INTEGER" property="num"></result>
+        <result column="date" jdbcType="DATE" property="date"></result>
+        <result column="visit" jdbcType="INTEGER" property="visit"></result>
+    </resultMap>
+    <select id="selectByPrimaryKey" resultMap="SDResultMap">
+        select * from store_data where id = #{id}
+    </select>
+
+<!--    动态sql可变字段查询-->
+    <select id="selectByExample" parameterType="cn.edu.whu.huaqi_2020.entities.data.StoreData" resultMap="SDResultMap">
+        select * from store_data
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="ownerId != null">
+                AND store_id = #{storeId}
+            </if>
+            <if test="money != null">
+                AND money = #{money}
+            </if>
+            <if test="num != null">
+                AND num = #{num}
+            </if>
+            <if test="date != null">
+                AND date = #{date}
+            </if>
+            <if test="visit != null">
+                AND visit = #{visit}
+            </if>
+        </where>
+    </select>
+
+    <!--    是mybatis获取数据库生成的自增主键值注入给对象-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="cn.edu.whu.huaqi_2020.entities.data.StoreData">
+        insert into store_data(id,store_id,money,num,date,visit) values
+        (#{id},#{storeId},#{money},#{num},#{date},#{visit})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.data.StoreData">
+        update store_data set store_id=#{storeId},money=#{money},num=#{num},
+        date=#{date},visit=#{visit} where id=#{id}
+    </update>
+
+<!--    部分字段更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.data.StoreData">
+        update store_data
+        <set>
+            <if test="storeId != null">
+                store_id = #{storeId}
+            </if>
+            <if test="money != null">
+                money = #{money}
+            </if>
+            <if test="num != null">
+                num = #{num}
+            </if>
+            <if test="date != null">
+                date = #{date}
+            </if>
+            <if test="visit != null">
+                visit = #{visit}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from store_data where id = #{id}
+    </delete>
+
+</mapper>

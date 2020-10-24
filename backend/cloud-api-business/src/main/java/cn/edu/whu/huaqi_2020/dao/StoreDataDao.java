@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * Date: 2020/10/22 10:27
  **/
 @Repository
-public interface StoreDataDao extends BaseDao<StoreData,String>{
+public interface StoreDataDao extends BaseDao<StoreData,Integer>{
 }
