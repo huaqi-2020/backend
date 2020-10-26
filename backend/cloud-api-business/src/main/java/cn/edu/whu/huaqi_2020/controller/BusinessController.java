@@ -53,6 +53,7 @@ public class BusinessController {
         return businessService.selectByPrimaryKey(id);
     }
 
+    @AuthGroup("admin")
     @ApiOperation(
             value = "查询圈子筛选列表",
             notes = "查询圈子筛选列表"
