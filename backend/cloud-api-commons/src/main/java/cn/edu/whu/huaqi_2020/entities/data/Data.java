@@ -5,8 +5,6 @@ import cc.eamon.open.mapping.mapper.MapperExtra;
 import cc.eamon.open.mapping.mapper.MapperRename;
 import lombok.*;
 
-import java.sql.Date;
-
 /**
  * Author: Zhu yuhan
  * Email: zhuyuhan2333@qq.com
@@ -26,26 +24,22 @@ import java.sql.Date;
         name = {"singleMoney","visit","collects","coins","thumbs"},
         type = {Double.class,Integer.class,Integer.class,Integer.class,Integer.class},
         typeArgs = {"null","null","null","null","null"},
-        list = {false,false,false,false,false},
-        defaultValues = {"0.0","0","0","0","0"}
+        list = {false,false,false,false,false}
 )
 public class Data {
 
-    private Integer id;
+    private Integer id = null;
     @MapperRename(
             value = {"videoData","goodData","storeData","ownerData"},
             name = {"videoId","goodId","storeId","ownerId"}
     )
     private String foreignId;
-    private Date date;
+    //数据有问题
+    private String date;
+    private Double money = null;
     @MapperRename(
-            value = {"goodData","storeData","ownerData"},
-            name = {"saleMoney","saleMoney","playMoney"}
+            value = {"videoData"},
+            name = {"playNum"}
     )
-    private Double money;
-    @MapperRename(
-            value = {"videoData","goodData","storeData","ownerData"},
-            name = {"playNum","saleNum","saleNum","playNum"}
-    )
-    private Long num;
+    private Long num = null;
 }

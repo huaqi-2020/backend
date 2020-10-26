@@ -22,7 +22,7 @@
             <if test="id != null">
                 id = #{id}
             </if>
-            <if test="ownerId != null">
+            <if test="storeId != null">
                 AND store_id = #{storeId}
             </if>
             <if test="money != null">

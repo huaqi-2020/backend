@@ -24,7 +24,7 @@
             <if test="id != null">
                 id = #{id}
             </if>
-            <if test="ownerId != null">
+            <if test="videoId != null">
                 AND video_id = #{videoId}
             </if>
             <if test="money != null">

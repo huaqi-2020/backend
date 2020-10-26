@@ -1,17 +1,15 @@
 package cn.edu.whu.huaqi_2020.controller;
 
-import cc.eamon.open.auth.AuthExpression;
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.Business;
-import cn.edu.whu.huaqi_2020.service.impl.BusinessService;
+import cn.edu.whu.huaqi_2020.entities.user.Hobby;
+import cn.edu.whu.huaqi_2020.service.impl.HobbyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,27 +18,24 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by Zhu yuhan
- * Date:2020/9/28 16:15
+ * Author: Zhu yuhan
+ * Email: zhuyuhan2333@qq.com
+ * Date: 2020/10/26 15:47
  **/
 @Api(
-        value = "圈子模块",
-        tags = "圈子模块"
+        value = "爱好模块",
+        tags = "爱好模块"
 )
 @RestController
-@RequestMapping("api/business")
-public class BusinessController {
+@RequestMapping("api/hobby")
+public class HobbyController {
 
     @Autowired
-    private BusinessService businessService;
+    private HobbyService hobbyService;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @AuthExpression("userId != null")
     @ApiOperation(
-            value = "查询圈子",
-            notes = "查询圈子"
+            value = "查询爱好",
+            notes = "查询爱好"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -49,25 +44,8 @@ public class BusinessController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchBusiness(@RequestParam("id") String id){
-        return businessService.selectByPrimaryKey(id);
-    }
-
-    @ApiOperation(
-            value = "查询圈子筛选列表",
-            notes = "查询圈子筛选列表"
-    )
-    @Transactional(
-            rollbackFor = Exception.class
-    )
-    @RequestMapping(
-            value = "filter",
-            method = RequestMethod.POST
-    )
-    public Map<String, Object> fetchBusinessList(@RequestBody Business business){
-        return Status.successBuilder()
-                .addDataValue(businessService.selectByExample(business))
-                .map();
+    public Map<String, Object> fetchHobby(@RequestParam("id") String id){
+        return hobbyService.selectByPrimaryKey(id);
     }
 
     @AuthGroup("admin")
@@ -83,9 +61,9 @@ public class BusinessController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Business postMapper) {
+    public Map<String, Object> post(@RequestBody Hobby postMapper) {
         return Status.successBuilder()
-                .addDataValue(businessService.insert(postMapper))
+                .addDataValue(hobbyService.insert(postMapper))
                 .map();
     }
 
@@ -102,10 +80,10 @@ public class BusinessController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Business> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Hobby> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Business postMapper : postMappers) {
-            insertMapList.add(businessService.insert(postMapper));
+        for (Hobby postMapper : postMappers) {
+            insertMapList.add(hobbyService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -125,9 +103,9 @@ public class BusinessController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Business updateMapper) {
+    public Map<String, Object> patch(@RequestBody Hobby updateMapper) {
         return Status.successBuilder()
-                .addDataValue(businessService.updateByPrimaryKey(updateMapper))
+                .addDataValue(hobbyService.updateByPrimaryKey(updateMapper))
                 .map();
     }
 
@@ -146,7 +124,7 @@ public class BusinessController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(businessService.deleteByPrimaryKey(entityKey))
+                .addDataValue(hobbyService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -166,7 +144,7 @@ public class BusinessController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(businessService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(hobbyService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

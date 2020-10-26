@@ -32,7 +32,7 @@
         <mybatis.spring.boot.version>2.1.1</mybatis.spring.boot.version>
         <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
         <mapping-version>1.0.5-ALPHA</mapping-version>
-        <auth-version>0.0.3</auth-version>
+        <auth-version>0.0.5</auth-version>
         <spring-boot-version>2.2.2.RELEASE</spring-boot-version>
         <springfox-swagger2-version>2.9.2</springfox-swagger2-version>
         <knife4j-version>2.0.4</knife4j-version>
