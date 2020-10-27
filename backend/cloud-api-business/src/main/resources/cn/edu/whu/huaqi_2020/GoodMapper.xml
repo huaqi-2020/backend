@@ -44,9 +44,6 @@
             <if test="name != null">
                 name = #{name}
             </if>
-            <if test="storeId != null">
-                store_id = #{storeId}
-            </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>

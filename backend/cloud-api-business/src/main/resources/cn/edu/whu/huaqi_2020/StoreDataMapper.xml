@@ -55,17 +55,14 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.data.StoreData">
         update store_data
         <set>
-            <if test="storeId != null">
-                store_id = #{storeId}
-            </if>
             <if test="money != null">
-                money = #{money}
+                money = #{money},
             </if>
             <if test="num != null">
-                num = #{num}
+                num = #{num},
             </if>
             <if test="date != null">
-                date = #{date}
+                date = #{date},
             </if>
             <if test="visit != null">
                 visit = #{visit}

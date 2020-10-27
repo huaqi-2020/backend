@@ -63,23 +63,20 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2">
         update business_special2
         <set>
-            <if test="businessId != null">
-                business_id = #{businessId}
-            </if>
             <if test="money != null">
-                money = #{money}
+                money = #{money},
             </if>
             <if test="playNum != null">
-                play_num = #{playNum}
+                play_num = #{playNum},
             </if>
             <if test="date != null">
-                date = #{date}
+                date = #{date},
             </if>
             <if test="visitor != null">
-                visitor = #{visitor}
+                visitor = #{visitor},
             </if>
             <if test="search != null">
-                search = #{search}
+                search = #{search},
             </if>
             <if test="rate != null">
                 rate = #{rate}

@@ -63,9 +63,6 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial1">
         update business_special1
         <set>
-            <if test="businessId != null">
-                business_id = #{businessId}
-            </if>
             <if test="saleMoney != null">
                 sale_money = #{saleMoney}
             </if>

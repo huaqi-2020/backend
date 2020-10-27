@@ -35,8 +35,8 @@ public class OwnerDataController {
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询Up主数据信息",
-            notes = "查询Up主数据信息"
+            value = "查询UP主数据信息",
+            notes = "查询UP主数据信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -51,8 +51,8 @@ public class OwnerDataController {
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询Up主数据筛选列表",
-            notes = "查询Up主数据筛选列表"
+            value = "查询UP主数据筛选列表",
+            notes = "查询UP主数据筛选列表"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -61,7 +61,7 @@ public class OwnerDataController {
             value = "filter",
             method = RequestMethod.POST
     )
-    public Map<String, Object> fetchOwnerDataList(OwnerData ownerData){
+    public Map<String, Object> fetchOwnerDataList(@RequestBody OwnerData ownerData){
         return Status.successBuilder()
                 .addDataValue(ownerDataService.selectByExample(ownerData))
                 .map();
@@ -124,7 +124,7 @@ public class OwnerDataController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody OwnerData updateMapper) {
         return Status.successBuilder()
-                .addDataValue(ownerDataService.updateByPrimaryKey(updateMapper))
+                .addDataValue(ownerDataService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

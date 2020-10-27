@@ -63,23 +63,20 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.data.VideoData">
         update video_data
         <set>
-            <if test="ownerId != null">
-                video_id = #{videoId}
-            </if>
             <if test="money != null">
-                money = #{money}
+                money = #{money},
             </if>
             <if test="playNum != null">
-                play_num = #{playNum}
+                play_num = #{playNum},
             </if>
             <if test="date != null">
-                date = #{date}
+                date = #{date},
             </if>
             <if test="thumbs != null">
-                thumbs = #{thumbs}
+                thumbs = #{thumbs},
             </if>
             <if test="collects != null">
-                collects = #{collects}
+                collects = #{collects},
             </if>
             <if test="coins != null">
                 coins = #{coins}

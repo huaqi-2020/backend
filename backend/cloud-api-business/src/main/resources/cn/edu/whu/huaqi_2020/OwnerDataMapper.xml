@@ -51,14 +51,11 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.whu.huaqi_2020.entities.data.OwnerData">
         update owner_data
         <set>
-            <if test="ownerId != null">
-                owner_id = #{ownerId}
-            </if>
             <if test="money != null">
-                money = #{money}
+                money = #{money},
             </if>
             <if test="num != null">
-                num = #{num}
+                num = #{num},
             </if>
             <if test="date != null">
                 date = #{date}
