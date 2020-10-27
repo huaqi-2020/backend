@@ -2,7 +2,6 @@ package cn.edu.whu.huaqi_2020.entities.business;
 
 import cc.eamon.open.mapping.mapper.Mapper;
 import lombok.*;
-import org.checkerframework.common.reflection.qual.GetConstructor;
 
 /**
  * Author: Zhu yuhan
@@ -20,6 +19,6 @@ public class Business {
     private String id;
     private String name;
     private Integer userNum;
-    private Integer type;
+    private String type;
 
 }

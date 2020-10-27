@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.whu.huaqi_2020.dao.BusinessSpecial2Dao">
     <resultMap id="B2ResultMap" type="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2">
-        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="id" jdbcType="INTEGER" property="id"></result>
         <result column="business_id" jdbcType="VARCHAR" property="businessId"></result>
         <result column="money" jdbcType="DOUBLE" property="money"></result>
         <result column="play_num" jdbcType="INTEGER" property="playNum"></result>
-        <result column="date" jdbcType="DATE" property="date"></result>
+        <result column="date" jdbcType="VARCHAR" property="date"></result>
         <result column="visitor" jdbcType="INTEGER" property="visitor"></result>
         <result column="search" jdbcType="INTEGER" property="search"></result>
         <result column="rate" jdbcType="DOUBLE" property="rate"></result>

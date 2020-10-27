@@ -2,11 +2,7 @@ package cn.edu.whu.huaqi_2020.entities.business;
 
 import cc.eamon.open.mapping.mapper.Mapper;
 import cc.eamon.open.mapping.mapper.MapperExtra;
-import io.swagger.models.auth.In;
 import lombok.*;
-import org.mockito.internal.matchers.Null;
-
-import java.sql.Date;
 
 /**
  * Author: Zhu yuhan
@@ -27,15 +23,14 @@ import java.sql.Date;
         name = {"saleMoney","saleNum","money","playNum"},
         type = {Double.class,Long.class,Double.class,Long.class},
         typeArgs = {"null","null","null","null",},
-        list = {false,false,false,false},
-        defaultValues = {"0.0","0L","0.0","0L",}
+        list = {false,false,false,false}
 )
 public class BusinessCommon {
 
-    private String id;
+    private Integer id;
     private String businessId;
-    private Date date;
-    private Integer visit;
+    private String date;
+    private Integer visitor;
     private Integer search;
     private Double rate;
 

@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.whu.huaqi_2020.dao.BusinessSpecial1Dao">
     <resultMap id="B1ResultMap" type="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial1">
-        <result column="id" jdbcType="VARCHAR" property="id"></result>
+        <result column="id" jdbcType="INTEGER" property="id"></result>
         <result column="business_id" jdbcType="VARCHAR" property="businessId"></result>
         <result column="sale_money" jdbcType="DOUBLE" property="saleMoney"></result>
         <result column="sale_num" jdbcType="INTEGER" property="saleNum"></result>
-        <result column="date" jdbcType="DATE" property="date"></result>
+        <result column="date" jdbcType="VARCHAR" property="date"></result>
         <result column="visitor" jdbcType="INTEGER" property="visitor"></result>
         <result column="search" jdbcType="INTEGER" property="search"></result>
         <result column="rate" jdbcType="DOUBLE" property="rate"></result>
@@ -64,19 +64,19 @@
         update business_special1
         <set>
             <if test="saleMoney != null">
-                sale_money = #{saleMoney}
+                sale_money = #{saleMoney},
             </if>
             <if test="saleNum != null">
-                sale_num = #{saleNum}
+                sale_num = #{saleNum},
             </if>
             <if test="date != null">
-                date = #{date}
+                date = #{date},
             </if>
             <if test="visitor != null">
-                visitor = #{visitor}
+                visitor = #{visitor},
             </if>
             <if test="search != null">
-                search = #{search}
+                search = #{search},
             </if>
             <if test="rate != null">
                 rate = #{rate}
