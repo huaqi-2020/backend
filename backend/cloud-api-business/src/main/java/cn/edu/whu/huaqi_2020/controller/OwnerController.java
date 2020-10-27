@@ -35,8 +35,8 @@ public class OwnerController {
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询商品信息",
-            notes = "查询商品信息"
+            value = "查询UP主信息",
+            notes = "查询UP主信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -46,7 +46,9 @@ public class OwnerController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchOwner(@RequestParam("id") String id){
-        return ownerService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(ownerService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

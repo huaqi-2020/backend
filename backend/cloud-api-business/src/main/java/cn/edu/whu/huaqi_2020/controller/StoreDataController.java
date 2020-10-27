@@ -46,7 +46,9 @@ public class StoreDataController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchStoreData(@RequestParam("id") Integer id){
-        return storeDataService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(storeDataService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

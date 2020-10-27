@@ -46,7 +46,9 @@ public class OwnerDataController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchOwnerData(@RequestParam("id") Integer id){
-        return ownerDataService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(ownerDataService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

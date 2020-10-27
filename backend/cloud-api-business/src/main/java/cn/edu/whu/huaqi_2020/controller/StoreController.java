@@ -46,7 +46,9 @@ public class StoreController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchStore(@RequestParam("id") String id){
-        return storeService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(storeService.selectByPrimaryKey(id))
+                .map();
     }
 
 

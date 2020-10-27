@@ -46,7 +46,9 @@ public class VideoController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchVideo(@RequestParam("id") String id){
-        return videoService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(videoService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

@@ -37,7 +37,7 @@ public class BusinessController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @AuthExpression("userId != null")
+    @AuthExpression("userId != nil")
     @ApiOperation(
             value = "查询圈子",
             notes = "查询圈子"
@@ -50,7 +50,9 @@ public class BusinessController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchBusiness(@RequestParam("id") String id){
-        return businessService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(businessService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

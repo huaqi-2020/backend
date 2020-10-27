@@ -46,7 +46,9 @@ public class GoodController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchGood(@RequestParam("id") String id){
-        return goodService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(goodService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

@@ -45,7 +45,9 @@ public class VideoDataController {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchVideoData(@RequestParam("id") Integer id){
-        return videoDataService.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(videoDataService.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")

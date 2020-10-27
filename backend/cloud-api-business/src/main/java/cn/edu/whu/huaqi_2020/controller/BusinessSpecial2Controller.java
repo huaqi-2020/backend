@@ -46,7 +46,9 @@ public class BusinessSpecial2Controller {
             method = RequestMethod.GET
     )
     public Map<String, Object> fetchB2(@RequestParam("id") String id){
-        return businessSpecial2Service.selectByPrimaryKey(id);
+        return Status.successBuilder()
+                .addDataValue(businessSpecial2Service.selectByPrimaryKey(id))
+                .map();
     }
 
     @AuthGroup("admin")
