@@ -124,7 +124,7 @@ public class StoreDataController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody StoreData updateMapper) {
         return Status.successBuilder()
-                .addDataValue(storeDataService.updateByPrimaryKey(updateMapper))
+                .addDataValue(storeDataService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

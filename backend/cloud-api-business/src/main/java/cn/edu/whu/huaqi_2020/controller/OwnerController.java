@@ -124,7 +124,7 @@ public class OwnerController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody Owner updateMapper) {
         return Status.successBuilder()
-                .addDataValue(ownerService.updateByPrimaryKey(updateMapper))
+                .addDataValue(ownerService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

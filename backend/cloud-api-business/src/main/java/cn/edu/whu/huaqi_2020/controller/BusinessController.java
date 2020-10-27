@@ -128,7 +128,7 @@ public class BusinessController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody Business updateMapper) {
         return Status.successBuilder()
-                .addDataValue(businessService.updateByPrimaryKey(updateMapper))
+                .addDataValue(businessService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

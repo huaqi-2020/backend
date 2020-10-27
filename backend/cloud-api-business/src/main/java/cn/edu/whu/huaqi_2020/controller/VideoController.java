@@ -124,7 +124,7 @@ public class VideoController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody Video updateMapper) {
         return Status.successBuilder()
-                .addDataValue(videoService.updateByPrimaryKey(updateMapper))
+                .addDataValue(videoService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

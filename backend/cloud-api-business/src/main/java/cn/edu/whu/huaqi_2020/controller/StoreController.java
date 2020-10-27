@@ -125,7 +125,7 @@ public class StoreController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody Store updateMapper) {
         return Status.successBuilder()
-                .addDataValue(storeService.updateByPrimaryKey(updateMapper))
+                .addDataValue(storeService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

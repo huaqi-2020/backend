@@ -124,7 +124,7 @@ public class GoodController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody Good updateMapper) {
         return Status.successBuilder()
-                .addDataValue(goodService.updateByPrimaryKey(updateMapper))
+                .addDataValue(goodService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 

@@ -124,7 +124,7 @@ public class BusinessSpecial1Controller {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody BusinessSpecial1 updateMapper) {
         return Status.successBuilder()
-                .addDataValue(businessSpecial1Service.updateByPrimaryKey(updateMapper))
+                .addDataValue(businessSpecial1Service.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
