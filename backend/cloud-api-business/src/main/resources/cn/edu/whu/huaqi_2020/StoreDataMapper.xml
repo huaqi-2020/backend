@@ -47,7 +47,7 @@
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.data.StoreData">
-        update store_data set store_id=#{storeId},money=#{money},num=#{num},
+        update store_data set money=#{money},num=#{num},
         date=#{date},visit=#{visit} where id=#{id}
     </update>
 

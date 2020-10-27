@@ -55,7 +55,7 @@
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.data.VideoData">
-        update video_data set video_id=#{videoId},money=#{money},play_num=#{playNum},
+        update video_data set money=#{money},play_num=#{playNum},
         date=#{date},thumbs=#{thumbs},collects=#{collects},coins=#{coins} where id=#{id}
     </update>
 

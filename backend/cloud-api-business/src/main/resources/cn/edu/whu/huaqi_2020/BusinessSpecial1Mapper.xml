@@ -55,7 +55,7 @@
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial1">
-        update business_special1 set business_id=#{businessId},sale_money=#{saleMoney},sale_num=#{saleNum},
+        update business_special1 set sale_money=#{saleMoney},sale_num=#{saleNum},
         date=#{date},visitor=#{visitor},search=#{search},rate=#{rate} where id=#{id}
     </update>
 

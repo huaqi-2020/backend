@@ -47,7 +47,7 @@
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.data.GoodData">
-        update good_data set good_id=#{goodId},money=#{money},num=#{num},
+        update good_data set money=#{money},num=#{num},
         date=#{date},single_money=#{singleMoney} where id=#{id}
     </update>
 

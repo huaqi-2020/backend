@@ -43,7 +43,7 @@
     </insert>
 
     <update id="updateByPrimaryKey" parameterType="cn.edu.whu.huaqi_2020.entities.data.OwnerData">
-        update owner_data set owner_id=#{ownerId},money=#{money},num=#{num},
+        update owner_data set money=#{money},num=#{num},
         date=#{date} where id=#{id}
     </update>
 
