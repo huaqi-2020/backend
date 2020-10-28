@@ -1,9 +1,9 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2;
-import cn.edu.whu.huaqi_2020.service.impl.BusinessSpecial2Service;
+import cn.edu.whu.huaqi_2020.entities.business.Good;
+import cn.edu.whu.huaqi_2020.service.impl.GoodService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "圈子分类2数据模块",
-        tags = "圈子分类2数据模块"
+        value = "商品模块",
+        tags = "商品模块"
 )
 @RestController
-@RequestMapping("api/businessSpecial2")
+@RequestMapping("api/good")
 
-public class BusinessSpecial2Controller {
+public class GoodController {
 
     @Autowired
-    private BusinessSpecial2Service businessSpecial2Service;
+    private GoodService goodService;
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询圈子分类2信息",
-            notes = "查询圈子分类2信息"
+            value = "查询商品信息",
+            notes = "查询商品信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,16 +45,16 @@ public class BusinessSpecial2Controller {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchB2(@RequestParam("id") String id){
+    public Map<String, Object> fetchGood(@RequestParam("id") String id){
         return Status.successBuilder()
-                .addDataValue(businessSpecial2Service.selectByPrimaryKey(id))
+                .addDataValue(goodService.selectByPrimaryKey(id))
                 .map();
     }
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询圈子分类2数据筛选列表",
-            notes = "查询圈子分类2数据筛选列表"
+            value = "查询商品筛选列表",
+            notes = "查询商品筛选列表"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -63,9 +63,9 @@ public class BusinessSpecial2Controller {
             value = "filter",
             method = RequestMethod.POST
     )
-    public Map<String, Object> fetchBusinessSpecial2List(@RequestBody BusinessSpecial2 businessSpecial2){
+    public Map<String, Object> fetchGoodList(@RequestBody Good good){
         return Status.successBuilder()
-                .addDataValue(businessSpecial2Service.selectByExample(businessSpecial2))
+                .addDataValue(goodService.selectByExample(good))
                 .map();
     }
 
@@ -82,9 +82,9 @@ public class BusinessSpecial2Controller {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody BusinessSpecial2 postMapper) {
+    public Map<String, Object> post(@RequestBody Good postMapper) {
         return Status.successBuilder()
-                .addDataValue(businessSpecial2Service.insert(postMapper))
+                .addDataValue(goodService.insert(postMapper))
                 .map();
     }
 
@@ -101,10 +101,10 @@ public class BusinessSpecial2Controller {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<BusinessSpecial2> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Good> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (BusinessSpecial2 postMapper : postMappers) {
-            insertMapList.add(businessSpecial2Service.insert(postMapper));
+        for (Good postMapper : postMappers) {
+            insertMapList.add(goodService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,9 +124,9 @@ public class BusinessSpecial2Controller {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody BusinessSpecial2 updateMapper) {
+    public Map<String, Object> patch(@RequestBody Good updateMapper) {
         return Status.successBuilder()
-                .addDataValue(businessSpecial2Service.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(goodService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
@@ -145,7 +145,7 @@ public class BusinessSpecial2Controller {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(businessSpecial2Service.deleteByPrimaryKey(entityKey))
+                .addDataValue(goodService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -165,7 +165,7 @@ public class BusinessSpecial2Controller {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(businessSpecial2Service.deleteByPrimaryKey(entityKey));
+            count.addAndGet(goodService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

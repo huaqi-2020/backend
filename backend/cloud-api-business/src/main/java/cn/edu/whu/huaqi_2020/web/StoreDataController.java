@@ -1,9 +1,9 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.Video;
-import cn.edu.whu.huaqi_2020.service.impl.VideoService;
+import cn.edu.whu.huaqi_2020.entities.data.StoreData;
+import cn.edu.whu.huaqi_2020.service.impl.StoreDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "影视作品模块",
-        tags = "影视作品模块"
+        value = "商店数据模块",
+        tags = "商店数据模块"
 )
 @RestController
-@RequestMapping("api/video")
+@RequestMapping("api/storeData")
 
-public class VideoController {
+public class StoreDataController {
 
     @Autowired
-    private VideoService videoService;
+    private StoreDataService storeDataService;
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询影视作品信息",
-            notes = "查询影视作品信息"
+            value = "查询商品数据信息",
+            notes = "查询商品数据信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,9 +45,27 @@ public class VideoController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchVideo(@RequestParam("id") String id){
+    public Map<String, Object> fetchStoreData(@RequestParam("id") Integer id){
         return Status.successBuilder()
-                .addDataValue(videoService.selectByPrimaryKey(id))
+                .addDataValue(storeDataService.selectByPrimaryKey(id))
+                .map();
+    }
+
+    @AuthGroup("admin")
+    @ApiOperation(
+            value = "查询商店数据筛选列表",
+            notes = "查询商店数据筛选列表"
+    )
+    @Transactional(
+            rollbackFor = Exception.class
+    )
+    @RequestMapping(
+            value = "filter",
+            method = RequestMethod.POST
+    )
+    public Map<String, Object> fetchStoreDataList(@RequestBody StoreData storeData){
+        return Status.successBuilder()
+                .addDataValue(storeDataService.selectByExample(storeData))
                 .map();
     }
 
@@ -64,27 +82,9 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Video postMapper) {
+    public Map<String, Object> post(@RequestBody StoreData postMapper) {
         return Status.successBuilder()
-                .addDataValue(videoService.insert(postMapper))
-                .map();
-    }
-
-    @AuthGroup("admin")
-    @ApiOperation(
-            value = "查询影视作品筛选列表",
-            notes = "查询影视作品筛选列表"
-    )
-    @Transactional(
-            rollbackFor = Exception.class
-    )
-    @RequestMapping(
-            value = "filter",
-            method = RequestMethod.POST
-    )
-    public Map<String, Object> fetchVideoList(@RequestBody Video video){
-        return Status.successBuilder()
-                .addDataValue(videoService.selectByExample(video))
+                .addDataValue(storeDataService.insert(postMapper))
                 .map();
     }
 
@@ -101,10 +101,10 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Video> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<StoreData> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Video postMapper : postMappers) {
-            insertMapList.add(videoService.insert(postMapper));
+        for (StoreData postMapper : postMappers) {
+            insertMapList.add(storeDataService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,9 +124,9 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Video updateMapper) {
+    public Map<String, Object> patch(@RequestBody StoreData updateMapper) {
         return Status.successBuilder()
-                .addDataValue(videoService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(storeDataService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
@@ -143,9 +143,9 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
+    public Map<String, Object> delete(@RequestParam("entityKey") Integer entityKey) {
         return Status.successBuilder()
-                .addDataValue(videoService.deleteByPrimaryKey(entityKey))
+                .addDataValue(storeDataService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -162,10 +162,10 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
+    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<Integer> entityKeys) {
         AtomicInteger count = new AtomicInteger();
-        for (String entityKey : entityKeys) {
-            count.addAndGet(videoService.deleteByPrimaryKey(entityKey));
+        for (Integer entityKey : entityKeys) {
+            count.addAndGet(storeDataService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

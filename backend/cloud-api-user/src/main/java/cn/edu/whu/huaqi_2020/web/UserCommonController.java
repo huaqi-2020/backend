@@ -1,4 +1,4 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
 import cc.eamon.open.error.Assert;
 import cc.eamon.open.status.Status;

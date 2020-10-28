@@ -1,9 +1,9 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.data.OwnerData;
-import cn.edu.whu.huaqi_2020.service.impl.OwnerDataService;
+import cn.edu.whu.huaqi_2020.entities.business.Owner;
+import cn.edu.whu.huaqi_2020.service.impl.OwnerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "UP主数据模块",
-        tags = "UP主数据模块"
+        value = "UP主模块",
+        tags = "UP主模块"
 )
 @RestController
-@RequestMapping("api/ownerData")
+@RequestMapping("api/owner")
 
-public class OwnerDataController {
+public class OwnerController {
 
     @Autowired
-    private OwnerDataService ownerDataService;
+    private OwnerService ownerService;
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询UP主数据信息",
-            notes = "查询UP主数据信息"
+            value = "查询UP主信息",
+            notes = "查询UP主信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,16 +45,16 @@ public class OwnerDataController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchOwnerData(@RequestParam("id") Integer id){
+    public Map<String, Object> fetchOwner(@RequestParam("id") String id){
         return Status.successBuilder()
-                .addDataValue(ownerDataService.selectByPrimaryKey(id))
+                .addDataValue(ownerService.selectByPrimaryKey(id))
                 .map();
     }
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询UP主数据筛选列表",
-            notes = "查询UP主数据筛选列表"
+            value = "查询UP主筛选列表",
+            notes = "查询UP主筛选列表"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -63,9 +63,9 @@ public class OwnerDataController {
             value = "filter",
             method = RequestMethod.POST
     )
-    public Map<String, Object> fetchOwnerDataList(@RequestBody OwnerData ownerData){
+    public Map<String, Object> fetchOwnerList(@RequestBody Owner owner){
         return Status.successBuilder()
-                .addDataValue(ownerDataService.selectByExample(ownerData))
+                .addDataValue(ownerService.selectByExample(owner))
                 .map();
     }
 
@@ -82,9 +82,9 @@ public class OwnerDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody OwnerData postMapper) {
+    public Map<String, Object> post(@RequestBody Owner postMapper) {
         return Status.successBuilder()
-                .addDataValue(ownerDataService.insert(postMapper))
+                .addDataValue(ownerService.insert(postMapper))
                 .map();
     }
 
@@ -101,10 +101,10 @@ public class OwnerDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<OwnerData> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Owner> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (OwnerData postMapper : postMappers) {
-            insertMapList.add(ownerDataService.insert(postMapper));
+        for (Owner postMapper : postMappers) {
+            insertMapList.add(ownerService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,9 +124,9 @@ public class OwnerDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody OwnerData updateMapper) {
+    public Map<String, Object> patch(@RequestBody Owner updateMapper) {
         return Status.successBuilder()
-                .addDataValue(ownerDataService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(ownerService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
@@ -143,9 +143,9 @@ public class OwnerDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> delete(@RequestParam("entityKey") Integer entityKey) {
+    public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(ownerDataService.deleteByPrimaryKey(entityKey))
+                .addDataValue(ownerService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -162,10 +162,10 @@ public class OwnerDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<Integer> entityKeys) {
+    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
-        for (Integer entityKey : entityKeys) {
-            count.addAndGet(ownerDataService.deleteByPrimaryKey(entityKey));
+        for (String entityKey : entityKeys) {
+            count.addAndGet(ownerService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

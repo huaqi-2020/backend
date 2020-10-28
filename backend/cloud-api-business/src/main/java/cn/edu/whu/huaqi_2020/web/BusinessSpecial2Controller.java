@@ -1,15 +1,9 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
-import cc.eamon.open.auth.Auth;
-import cc.eamon.open.auth.AuthExpression;
 import cc.eamon.open.auth.AuthGroup;
-import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.dao.dataObject.UserDO;
-import cn.edu.whu.huaqi_2020.entities.user.User;
-import cn.edu.whu.huaqi_2020.entities.user.UserData;
-import cn.edu.whu.huaqi_2020.service.impl.UserService;
-import cn.edu.whu.huaqi_2020.service.plus.UserPlusService;
+import cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2;
+import cn.edu.whu.huaqi_2020.service.impl.BusinessSpecial2Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,40 +17,59 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by Zhu yuhan
- * Date:2020/9/28 11:14
+ * Author: Zhu yuhan
+ * Email: zhuyuhan2333@qq.com
+ * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "用户模块",
-        tags = "用户模块"
+        value = "圈子分类2数据模块",
+        tags = "圈子分类2数据模块"
 )
 @RestController
-@RequestMapping("api/user")
-public class UserController {
+@RequestMapping("api/businessSpecial2")
+
+public class BusinessSpecial2Controller {
 
     @Autowired
-    private UserService userService;
+    private BusinessSpecial2Service businessSpecial2Service;
 
-    @Autowired
-    private UserPlusService userPlusService;
-
-    @AuthExpression("id==userId")
+    @AuthGroup("admin")
     @ApiOperation(
-            value = "查询用户信息",
-            notes = "查询用户信息"
+            value = "查询圈子分类2信息",
+            notes = "查询圈子分类2信息"
     )
     @Transactional(
             rollbackFor = Exception.class
     )
     @RequestMapping(
-            value = "info",
+            value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchUser(@RequestParam("id") String id){
-        return userService.selectByPrimaryKey(id);
+    public Map<String, Object> fetchB2(@RequestParam("id") String id){
+        return Status.successBuilder()
+                .addDataValue(businessSpecial2Service.selectByPrimaryKey(id))
+                .map();
     }
 
-    @AuthExpression("id==userId")
+    @AuthGroup("admin")
+    @ApiOperation(
+            value = "查询圈子分类2数据筛选列表",
+            notes = "查询圈子分类2数据筛选列表"
+    )
+    @Transactional(
+            rollbackFor = Exception.class
+    )
+    @RequestMapping(
+            value = "filter",
+            method = RequestMethod.POST
+    )
+    public Map<String, Object> fetchBusinessSpecial2List(@RequestBody BusinessSpecial2 businessSpecial2){
+        return Status.successBuilder()
+                .addDataValue(businessSpecial2Service.selectByExample(businessSpecial2))
+                .map();
+    }
+
+    @AuthGroup("admin")
     @ApiOperation(
             value = "发布实体",
             notes = "发布实体"
@@ -69,9 +82,9 @@ public class UserController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody User postMapper) {
+    public Map<String, Object> post(@RequestBody BusinessSpecial2 postMapper) {
         return Status.successBuilder()
-                .addDataValue(userService.insert(postMapper))
+                .addDataValue(businessSpecial2Service.insert(postMapper))
                 .map();
     }
 
@@ -88,17 +101,17 @@ public class UserController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<User> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<BusinessSpecial2> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (User postMapper : postMappers) {
-            insertMapList.add(userService.insert(postMapper));
+        for (BusinessSpecial2 postMapper : postMappers) {
+            insertMapList.add(businessSpecial2Service.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
                 .map();
     }
 
-    @AuthExpression("id==userId")
+    @AuthGroup("admin")
     @ApiOperation(
             value = "更新实体",
             notes = "更新实体"
@@ -111,15 +124,13 @@ public class UserController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody User updateMapper) {
+    public Map<String, Object> patch(@RequestBody BusinessSpecial2 updateMapper) {
         return Status.successBuilder()
-                .addDataValue(userService.updateByPrimaryKeySelective(UserData.convert(updateMapper,new UserDO())))
+                .addDataValue(businessSpecial2Service.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
-    @Auth(logical = Logical.OR)
-    @AuthExpression("entityKey==userId")
-    @AuthGroup(value = {"super","admin"},logical = Logical.OR)
+    @AuthGroup("admin")
     @ApiOperation(
             value = "删除实体",
             notes = "删除实体"
@@ -134,11 +145,11 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(userService.deleteByPrimaryKey(entityKey))
+                .addDataValue(businessSpecial2Service.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
-    @AuthGroup(value = {"super","admin"},logical = Logical.AND)
+    @AuthGroup("admin")
     @ApiOperation(
             value = "删除一组实体",
             notes = "删除一组实体"
@@ -154,7 +165,7 @@ public class UserController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(userService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(businessSpecial2Service.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

@@ -1,10 +1,15 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
+import cc.eamon.open.auth.Auth;
+import cc.eamon.open.auth.AuthExpression;
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.user.Hobby;
-import cn.edu.whu.huaqi_2020.service.impl.HobbyService;
+import cn.edu.whu.huaqi_2020.dao.dataObject.UserDO;
+import cn.edu.whu.huaqi_2020.entities.user.User;
+import cn.edu.whu.huaqi_2020.entities.user.UserData;
+import cn.edu.whu.huaqi_2020.service.impl.UserService;
+import cn.edu.whu.huaqi_2020.service.plus.UserPlusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,37 +23,40 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Author: Zhu yuhan
- * Email: zhuyuhan2333@qq.com
- * Date: 2020/10/26 15:47
+ * Created by Zhu yuhan
+ * Date:2020/9/28 11:14
  **/
 @Api(
-        value = "爱好模块",
-        tags = "爱好模块"
+        value = "用户模块",
+        tags = "用户模块"
 )
 @RestController
-@RequestMapping("api/hobby")
-public class HobbyController {
+@RequestMapping("api/user")
+public class UserController {
 
     @Autowired
-    private HobbyService hobbyService;
+    private UserService userService;
 
+    @Autowired
+    private UserPlusService userPlusService;
+
+    @AuthExpression("id==userId")
     @ApiOperation(
-            value = "查询爱好",
-            notes = "查询爱好"
+            value = "查询用户信息",
+            notes = "查询用户信息"
     )
     @Transactional(
             rollbackFor = Exception.class
     )
     @RequestMapping(
-            value = "",
+            value = "info",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchHobby(@RequestParam("id") String id){
-        return hobbyService.selectByPrimaryKey(id);
+    public Map<String, Object> fetchUser(@RequestParam("id") String id){
+        return userService.selectByPrimaryKey(id);
     }
 
-    @AuthGroup("admin")
+    @AuthExpression("id==userId")
     @ApiOperation(
             value = "发布实体",
             notes = "发布实体"
@@ -61,9 +69,9 @@ public class HobbyController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Hobby postMapper) {
+    public Map<String, Object> post(@RequestBody User postMapper) {
         return Status.successBuilder()
-                .addDataValue(hobbyService.insert(postMapper))
+                .addDataValue(userService.insert(postMapper))
                 .map();
     }
 
@@ -80,17 +88,17 @@ public class HobbyController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Hobby> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<User> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Hobby postMapper : postMappers) {
-            insertMapList.add(hobbyService.insert(postMapper));
+        for (User postMapper : postMappers) {
+            insertMapList.add(userService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthExpression("id==userId")
     @ApiOperation(
             value = "更新实体",
             notes = "更新实体"
@@ -103,12 +111,14 @@ public class HobbyController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Hobby updateMapper) {
+    public Map<String, Object> patch(@RequestBody User updateMapper) {
         return Status.successBuilder()
-                .addDataValue(hobbyService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(userService.updateByPrimaryKeySelective(UserData.convert(updateMapper,new UserDO())))
                 .map();
     }
 
+    @Auth(logical = Logical.OR)
+    @AuthExpression("entityKey==userId")
     @AuthGroup(value = {"super","admin"},logical = Logical.OR)
     @ApiOperation(
             value = "删除实体",
@@ -124,7 +134,7 @@ public class HobbyController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(hobbyService.deleteByPrimaryKey(entityKey))
+                .addDataValue(userService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -144,10 +154,11 @@ public class HobbyController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(hobbyService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(userService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())
                 .map();
     }
+
 }

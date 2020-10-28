@@ -1,9 +1,10 @@
-package cn.edu.whu.huaqi_2020.controller;
+package cn.edu.whu.huaqi_2020.web;
 
 import cc.eamon.open.auth.AuthGroup;
+import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.Good;
-import cn.edu.whu.huaqi_2020.service.impl.GoodService;
+import cn.edu.whu.huaqi_2020.entities.user.Hobby;
+import cn.edu.whu.huaqi_2020.service.impl.HobbyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +20,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Author: Zhu yuhan
  * Email: zhuyuhan2333@qq.com
- * Date: 2020/10/26 16:15
+ * Date: 2020/10/26 15:47
  **/
 @Api(
-        value = "商品模块",
-        tags = "商品模块"
+        value = "爱好模块",
+        tags = "爱好模块"
 )
 @RestController
-@RequestMapping("api/good")
-
-public class GoodController {
+@RequestMapping("api/hobby")
+public class HobbyController {
 
     @Autowired
-    private GoodService goodService;
+    private HobbyService hobbyService;
 
-    @AuthGroup("admin")
     @ApiOperation(
-            value = "查询商品信息",
-            notes = "查询商品信息"
+            value = "查询爱好",
+            notes = "查询爱好"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,28 +44,8 @@ public class GoodController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchGood(@RequestParam("id") String id){
-        return Status.successBuilder()
-                .addDataValue(goodService.selectByPrimaryKey(id))
-                .map();
-    }
-
-    @AuthGroup("admin")
-    @ApiOperation(
-            value = "查询商品筛选列表",
-            notes = "查询商品筛选列表"
-    )
-    @Transactional(
-            rollbackFor = Exception.class
-    )
-    @RequestMapping(
-            value = "filter",
-            method = RequestMethod.POST
-    )
-    public Map<String, Object> fetchGoodList(@RequestBody Good good){
-        return Status.successBuilder()
-                .addDataValue(goodService.selectByExample(good))
-                .map();
+    public Map<String, Object> fetchHobby(@RequestParam("id") String id){
+        return hobbyService.selectByPrimaryKey(id);
     }
 
     @AuthGroup("admin")
@@ -82,9 +61,9 @@ public class GoodController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Good postMapper) {
+    public Map<String, Object> post(@RequestBody Hobby postMapper) {
         return Status.successBuilder()
-                .addDataValue(goodService.insert(postMapper))
+                .addDataValue(hobbyService.insert(postMapper))
                 .map();
     }
 
@@ -101,10 +80,10 @@ public class GoodController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Good> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Hobby> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Good postMapper : postMappers) {
-            insertMapList.add(goodService.insert(postMapper));
+        for (Hobby postMapper : postMappers) {
+            insertMapList.add(hobbyService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,13 +103,13 @@ public class GoodController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Good updateMapper) {
+    public Map<String, Object> patch(@RequestBody Hobby updateMapper) {
         return Status.successBuilder()
-                .addDataValue(goodService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(hobbyService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthGroup(value = {"super","admin"},logical = Logical.OR)
     @ApiOperation(
             value = "删除实体",
             notes = "删除实体"
@@ -145,11 +124,11 @@ public class GoodController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(goodService.deleteByPrimaryKey(entityKey))
+                .addDataValue(hobbyService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthGroup(value = {"super","admin"},logical = Logical.AND)
     @ApiOperation(
             value = "删除一组实体",
             notes = "删除一组实体"
@@ -165,11 +144,10 @@ public class GoodController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(goodService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(hobbyService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())
                 .map();
     }
-
 }
