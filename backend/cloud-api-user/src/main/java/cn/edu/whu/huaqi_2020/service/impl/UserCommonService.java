@@ -29,7 +29,7 @@ public class UserCommonService {
         user.setPassword(password);
         UserDO filterMapper = UserData.convert(user,new UserDO());
         Map<String, Object> userMap = this.userService.selectByExample(filterMapper).stream().findFirst().get();
-        userMap.put("token",Math.random());
+        userMap.put("token",UUID.randomUUID().toString().replaceAll("-", "").toUpperCase().substring(0, 10));
         return userMap;
 
     }
