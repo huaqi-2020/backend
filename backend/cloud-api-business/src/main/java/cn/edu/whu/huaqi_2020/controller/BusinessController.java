@@ -1,6 +1,5 @@
 package cn.edu.whu.huaqi_2020.controller;
 
-import cc.eamon.open.auth.AuthExpression;
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
@@ -37,7 +36,7 @@ public class BusinessController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @AuthExpression("userId != nil")
+//    @AuthExpression("userId != nil")
     @ApiOperation(
             value = "查询圈子",
             notes = "查询圈子"
