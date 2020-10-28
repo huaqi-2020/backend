@@ -113,7 +113,7 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody User updateMapper) {
         return Status.successBuilder()
-                .addDataValue(userService.updateByPrimaryKey(UserData.convert(updateMapper,new UserDO())))
+                .addDataValue(userService.updateByPrimaryKeySelective(UserData.convert(updateMapper,new UserDO())))
                 .map();
     }
 

@@ -107,7 +107,7 @@ public class UserHobbyController {
     @ResponseBody
     public Map<String, Object> patch(@RequestBody UserHobby updateMapper) {
         return Status.successBuilder()
-                .addDataValue(userHobbyService.updateByPrimaryKey(updateMapper))
+                .addDataValue(userHobbyService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
