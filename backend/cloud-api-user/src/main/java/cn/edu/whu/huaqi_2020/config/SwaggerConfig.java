@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -29,8 +28,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("cloud-api-user")
-                .description("计算微服务模块")
-                .contact(new Contact("Zhu yuhan", "", "zhuyuhan2333@qq.com"))
+                .description("用户微服务模块")
+//                .contact(new Contact("Zhu yuhan", "", "Zhuyuhan2333@qq.com"))
 //                .termsOfServiceUrl("")
                 .version("1.0.0")
                 .build();

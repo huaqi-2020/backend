@@ -5,6 +5,7 @@ import cc.eamon.open.status.Status;
 import cc.eamon.open.status.StatusException;
 import cn.edu.whu.huaqi_2020.entities.user.User;
 import cn.edu.whu.huaqi_2020.service.impl.UserCommonService;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,14 +29,15 @@ public class UserCommonController {
     private UserCommonService userCommonService;
 
 
+    @ApiOperationSupport(ignoreParameters = {"consume","headUrl","profession","role","id"})
     @RequestMapping(
             value = "login",
-            method = RequestMethod.GET
+            method = RequestMethod.POST
     )
     @Transactional
     @ResponseBody
-    public Map<String, Object> login(@RequestParam String account, @RequestParam String password) {
-        return this.loginUser(account, password);
+    public Map<String, Object> login(@RequestBody User registerMapper) {
+        return this.loginUser(registerMapper.getNickName(), registerMapper.getPassword());
     }
 
     private Map<String, Object> loginUser(String account, String password) {

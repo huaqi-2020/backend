@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("cloud-api-business")
                 .description("圈子微服务模块")
-//                .contact(new Contact("hahaha", "", ""))
+//                .contact(new Contact("Zhu yuhan", "", "Zhuyuhan2333@qq.com"))
 //                .termsOfServiceUrl("")
                 .version("1.0.0")
                 .build();

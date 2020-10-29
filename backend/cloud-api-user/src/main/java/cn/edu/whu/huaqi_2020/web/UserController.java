@@ -9,7 +9,6 @@ import cn.edu.whu.huaqi_2020.dao.dataObject.UserDO;
 import cn.edu.whu.huaqi_2020.entities.user.User;
 import cn.edu.whu.huaqi_2020.entities.user.UserData;
 import cn.edu.whu.huaqi_2020.service.impl.UserService;
-import cn.edu.whu.huaqi_2020.service.plus.UserPlusService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +35,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserPlusService userPlusService;
 
     @AuthExpression("id==userId")
     @ApiOperation(
