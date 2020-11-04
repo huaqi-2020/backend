@@ -28,7 +28,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("cloud-api-user")
+                .title("cloud-api-calculate")
                 .description("计算微服务模块")
                 .contact(new Contact("Zhu yuhan", "", "zhuyuhan2333@qq.com"))
 //                .termsOfServiceUrl("")

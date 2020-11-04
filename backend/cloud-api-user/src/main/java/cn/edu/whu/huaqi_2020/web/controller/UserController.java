@@ -1,9 +1,14 @@
-package cn.edu.whu.huaqi_2020.web;
+package cn.edu.whu.huaqi_2020.web.controller;
 
+import cc.eamon.open.auth.Auth;
+import cc.eamon.open.auth.AuthExpression;
 import cc.eamon.open.auth.AuthGroup;
+import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.data.StoreData;
-import cn.edu.whu.huaqi_2020.service.impl.StoreDataService;
+import cn.edu.whu.huaqi_2020.dao.dataObject.UserDO;
+import cn.edu.whu.huaqi_2020.entities.user.User;
+import cn.edu.whu.huaqi_2020.entities.user.UserData;
+import cn.edu.whu.huaqi_2020.service.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,44 +22,40 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Author: Zhu yuhan
- * Email: zhuyuhan2333@qq.com
- * Date: 2020/10/26 16:15
+ * Created by Zhu yuhan
+ * Date:2020/9/28 11:14
  **/
 @Api(
-        value = "商店数据模块",
-        tags = "商店数据模块"
+        value = "用户模块",
+        tags = "用户模块"
 )
 @RestController
-@RequestMapping("api/storeData")
-
-public class StoreDataController {
+@RequestMapping("api/user")
+public class UserController {
 
     @Autowired
-    private StoreDataService storeDataService;
+    private UserService userService;
 
-    @AuthGroup("admin")
+    @AuthExpression("id==userId")
     @ApiOperation(
-            value = "查询商品数据信息",
-            notes = "查询商品数据信息"
+            value = "查询用户信息",
+            notes = "查询用户信息"
     )
     @Transactional(
             rollbackFor = Exception.class
     )
     @RequestMapping(
-            value = "",
+            value = "info",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchStoreData(@RequestParam("id") Integer id){
-        return Status.successBuilder()
-                .addDataValue(storeDataService.selectByPrimaryKey(id))
-                .map();
+    public Map<String, Object> fetchUser(@RequestParam("id") String id){
+        return userService.selectByPrimaryKey(id);
     }
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询商店数据筛选列表",
-            notes = "查询商店数据筛选列表"
+            value = "用户数据筛选列表",
+            notes = "用户数据筛选列表"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -63,13 +64,13 @@ public class StoreDataController {
             value = "filter",
             method = RequestMethod.POST
     )
-    public Map<String, Object> fetchStoreDataList(@RequestBody StoreData storeData){
+    public Map<String, Object> fetchBusinessSpecial1List(@RequestBody User user){
         return Status.successBuilder()
-                .addDataValue(storeDataService.selectByExample(storeData))
+                .addDataValue(userService.selectByExample(UserData.convert(user,new UserDO())))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthExpression("id==userId")
     @ApiOperation(
             value = "发布实体",
             notes = "发布实体"
@@ -82,9 +83,9 @@ public class StoreDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody StoreData postMapper) {
+    public Map<String, Object> post(@RequestBody User postMapper) {
         return Status.successBuilder()
-                .addDataValue(storeDataService.insert(postMapper))
+                .addDataValue(userService.insert(postMapper))
                 .map();
     }
 
@@ -101,17 +102,17 @@ public class StoreDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<StoreData> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<User> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (StoreData postMapper : postMappers) {
-            insertMapList.add(storeDataService.insert(postMapper));
+        for (User postMapper : postMappers) {
+            insertMapList.add(userService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthExpression("id==userId")
     @ApiOperation(
             value = "更新实体",
             notes = "更新实体"
@@ -124,13 +125,15 @@ public class StoreDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody StoreData updateMapper) {
+    public Map<String, Object> patch(@RequestBody User updateMapper) {
         return Status.successBuilder()
-                .addDataValue(storeDataService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(userService.updateByPrimaryKeySelective(UserData.convert(updateMapper,new UserDO())))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @Auth(logical = Logical.OR)
+    @AuthExpression("entityKey==userId")
+    @AuthGroup(value = {"super","admin"},logical = Logical.OR)
     @ApiOperation(
             value = "删除实体",
             notes = "删除实体"
@@ -143,13 +146,13 @@ public class StoreDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> delete(@RequestParam("entityKey") Integer entityKey) {
+    public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(storeDataService.deleteByPrimaryKey(entityKey))
+                .addDataValue(userService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthGroup(value = {"super","admin"},logical = Logical.AND)
     @ApiOperation(
             value = "删除一组实体",
             notes = "删除一组实体"
@@ -162,10 +165,10 @@ public class StoreDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<Integer> entityKeys) {
+    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
-        for (Integer entityKey : entityKeys) {
-            count.addAndGet(storeDataService.deleteByPrimaryKey(entityKey));
+        for (String entityKey : entityKeys) {
+            count.addAndGet(userService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

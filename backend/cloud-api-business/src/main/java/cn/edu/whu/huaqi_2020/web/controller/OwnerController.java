@@ -1,9 +1,9 @@
-package cn.edu.whu.huaqi_2020.web;
+package cn.edu.whu.huaqi_2020.web.controller;
 
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.data.GoodData;
-import cn.edu.whu.huaqi_2020.service.impl.GoodDataService;
+import cn.edu.whu.huaqi_2020.entities.business.Owner;
+import cn.edu.whu.huaqi_2020.service.impl.OwnerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "商品数据模块",
-        tags = "商品数据模块"
+        value = "UP主模块",
+        tags = "UP主模块"
 )
 @RestController
-@RequestMapping("api/goodData")
+@RequestMapping("api/owner")
 
-public class GoodDataController {
+public class OwnerController {
 
     @Autowired
-    private GoodDataService goodDataService;
+    private OwnerService ownerService;
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询商品数据信息",
-            notes = "查询商品数据信息"
+            value = "查询UP主信息",
+            notes = "查询UP主信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,16 +45,16 @@ public class GoodDataController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchGoodData(@RequestParam("id") Integer id){
+    public Map<String, Object> fetchOwner(@RequestParam("id") String id){
         return Status.successBuilder()
-                .addDataValue(goodDataService.selectByPrimaryKey(id))
+                .addDataValue(ownerService.selectByPrimaryKey(id))
                 .map();
     }
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询商品数据筛选列表",
-            notes = "查询商品数据筛选列表"
+            value = "查询UP主筛选列表",
+            notes = "查询UP主筛选列表"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -63,9 +63,9 @@ public class GoodDataController {
             value = "filter",
             method = RequestMethod.POST
     )
-    public Map<String, Object> fetchGoodDataList(@RequestBody GoodData goodData){
+    public Map<String, Object> fetchOwnerList(@RequestBody Owner owner){
         return Status.successBuilder()
-                .addDataValue(goodDataService.selectByExample(goodData))
+                .addDataValue(ownerService.selectByExample(owner))
                 .map();
     }
 
@@ -82,9 +82,9 @@ public class GoodDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody GoodData postMapper) {
+    public Map<String, Object> post(@RequestBody Owner postMapper) {
         return Status.successBuilder()
-                .addDataValue(goodDataService.insert(postMapper))
+                .addDataValue(ownerService.insert(postMapper))
                 .map();
     }
 
@@ -101,10 +101,10 @@ public class GoodDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<GoodData> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Owner> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (GoodData postMapper : postMappers) {
-            insertMapList.add(goodDataService.insert(postMapper));
+        for (Owner postMapper : postMappers) {
+            insertMapList.add(ownerService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,9 +124,9 @@ public class GoodDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody GoodData updateMapper) {
+    public Map<String, Object> patch(@RequestBody Owner updateMapper) {
         return Status.successBuilder()
-                .addDataValue(goodDataService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(ownerService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
@@ -143,9 +143,9 @@ public class GoodDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> delete(@RequestParam("entityKey") Integer entityKey) {
+    public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(goodDataService.deleteByPrimaryKey(entityKey))
+                .addDataValue(ownerService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -162,10 +162,10 @@ public class GoodDataController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<Integer> entityKeys) {
+    public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
-        for (Integer entityKey : entityKeys) {
-            count.addAndGet(goodDataService.deleteByPrimaryKey(entityKey));
+        for (String entityKey : entityKeys) {
+            count.addAndGet(ownerService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

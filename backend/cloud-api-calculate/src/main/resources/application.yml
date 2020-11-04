@@ -5,6 +5,8 @@ server:
 spring:
   application:
     name: cloud-api-calculate
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   client:
@@ -17,3 +19,15 @@ eureka:
   instance:
     instance-id: api-calculate-${server.port}
     prefer-ip-address: true
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 50000
+        readTimeout: 50000
+        loggerLevel: basic
+
+logging:
+  level:
+    cn.edu.whu.huaqi_2020: debug

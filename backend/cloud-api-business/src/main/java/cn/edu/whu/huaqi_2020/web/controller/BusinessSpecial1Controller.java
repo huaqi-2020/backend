@@ -1,9 +1,9 @@
-package cn.edu.whu.huaqi_2020.web;
+package cn.edu.whu.huaqi_2020.web.controller;
 
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.Video;
-import cn.edu.whu.huaqi_2020.service.impl.VideoService;
+import cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial1;
+import cn.edu.whu.huaqi_2020.service.impl.BusinessSpecial1Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,20 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "影视作品模块",
-        tags = "影视作品模块"
+        value = "圈子分类1数据模块",
+        tags = "圈子分类1数据模块"
 )
 @RestController
-@RequestMapping("api/video")
-
-public class VideoController {
+@RequestMapping("api/businessSpecial1")
+public class BusinessSpecial1Controller {
 
     @Autowired
-    private VideoService videoService;
+    private BusinessSpecial1Service businessSpecial1Service;
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询影视作品信息",
-            notes = "查询影视作品信息"
+            value = "查询圈子分类1信息",
+            notes = "查询圈子分类1信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,9 +44,27 @@ public class VideoController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchVideo(@RequestParam("id") String id){
+    public Map<String, Object> fetchB1(@RequestParam("id") String id){
         return Status.successBuilder()
-                .addDataValue(videoService.selectByPrimaryKey(id))
+                .addDataValue(businessSpecial1Service.selectByPrimaryKey(id))
+                .map();
+    }
+
+    @AuthGroup("admin")
+    @ApiOperation(
+            value = "查询圈子分类1数据筛选列表",
+            notes = "查询圈子分类1数据筛选列表"
+    )
+    @Transactional(
+            rollbackFor = Exception.class
+    )
+    @RequestMapping(
+            value = "filter",
+            method = RequestMethod.POST
+    )
+    public Map<String, Object> fetchBusinessSpecial1List(@RequestBody BusinessSpecial1 businessSpecial1){
+        return Status.successBuilder()
+                .addDataValue(businessSpecial1Service.selectByExample(businessSpecial1))
                 .map();
     }
 
@@ -64,27 +81,9 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Video postMapper) {
+    public Map<String, Object> post(@RequestBody BusinessSpecial1 postMapper) {
         return Status.successBuilder()
-                .addDataValue(videoService.insert(postMapper))
-                .map();
-    }
-
-    @AuthGroup("admin")
-    @ApiOperation(
-            value = "查询影视作品筛选列表",
-            notes = "查询影视作品筛选列表"
-    )
-    @Transactional(
-            rollbackFor = Exception.class
-    )
-    @RequestMapping(
-            value = "filter",
-            method = RequestMethod.POST
-    )
-    public Map<String, Object> fetchVideoList(@RequestBody Video video){
-        return Status.successBuilder()
-                .addDataValue(videoService.selectByExample(video))
+                .addDataValue(businessSpecial1Service.insert(postMapper))
                 .map();
     }
 
@@ -101,10 +100,10 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Video> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<BusinessSpecial1> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Video postMapper : postMappers) {
-            insertMapList.add(videoService.insert(postMapper));
+        for (BusinessSpecial1 postMapper : postMappers) {
+            insertMapList.add(businessSpecial1Service.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,9 +123,9 @@ public class VideoController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Video updateMapper) {
+    public Map<String, Object> patch(@RequestBody BusinessSpecial1 updateMapper) {
         return Status.successBuilder()
-                .addDataValue(videoService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(businessSpecial1Service.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
@@ -145,7 +144,7 @@ public class VideoController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(videoService.deleteByPrimaryKey(entityKey))
+                .addDataValue(businessSpecial1Service.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -165,7 +164,7 @@ public class VideoController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(videoService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(businessSpecial1Service.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())

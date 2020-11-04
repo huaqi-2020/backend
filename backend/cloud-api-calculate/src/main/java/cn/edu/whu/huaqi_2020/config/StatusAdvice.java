@@ -33,6 +33,6 @@ public class StatusAdvice extends cc.eamon.open.status.StatusAdvice {
 
     @Override
     public boolean setResponseStatus() {
-        return false;
+        return true;
     }
 }

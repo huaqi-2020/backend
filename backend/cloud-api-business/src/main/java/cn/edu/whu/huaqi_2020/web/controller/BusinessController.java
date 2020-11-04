@@ -1,14 +1,16 @@
-package cn.edu.whu.huaqi_2020.web;
+package cn.edu.whu.huaqi_2020.web.controller;
 
 import cc.eamon.open.auth.AuthGroup;
+import cc.eamon.open.auth.Logical;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.Store;
-import cn.edu.whu.huaqi_2020.service.impl.StoreService;
+import cn.edu.whu.huaqi_2020.entities.business.Business;
+import cn.edu.whu.huaqi_2020.service.impl.BusinessService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,26 +19,27 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Author: Zhu yuhan
- * Email: zhuyuhan2333@qq.com
- * Date: 2020/10/26 16:15
+ * Created by Zhu yuhan
+ * Date:2020/9/28 16:15
  **/
 @Api(
-        value = "商店模块",
-        tags = "商店模块"
+        value = "圈子模块",
+        tags = "圈子模块"
 )
 @RestController
-@RequestMapping("api/store")
-
-public class StoreController {
+@RequestMapping("api/business")
+public class BusinessController {
 
     @Autowired
-    private StoreService storeService;
+    private BusinessService businessService;
 
-    @AuthGroup("admin")
+    @Autowired
+    private RestTemplate restTemplate;
+
+//    @AuthExpression("userId != nil")
     @ApiOperation(
-            value = "查询商品信息",
-            notes = "查询商品信息"
+            value = "查询圈子",
+            notes = "查询圈子"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,17 +48,16 @@ public class StoreController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchStore(@RequestParam("id") String id){
+    public Map<String, Object> fetchBusiness(@RequestParam("id") String id){
         return Status.successBuilder()
-                .addDataValue(storeService.selectByPrimaryKey(id))
+                .addDataValue(businessService.selectByPrimaryKey(id))
                 .map();
     }
 
-
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询商店筛选列表",
-            notes = "查询商店筛选列表"
+            value = "查询圈子筛选列表",
+            notes = "查询圈子筛选列表"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -64,9 +66,9 @@ public class StoreController {
             value = "filter",
             method = RequestMethod.POST
     )
-    public Map<String, Object> fetchStoreList(@RequestBody Store store){
+    public Map<String, Object> fetchBusinessList(@RequestBody Business business){
         return Status.successBuilder()
-                .addDataValue(storeService.selectByExample(store))
+                .addDataValue(businessService.selectByExample(business))
                 .map();
     }
 
@@ -83,9 +85,9 @@ public class StoreController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Store postMapper) {
+    public Map<String, Object> post(@RequestBody Business postMapper) {
         return Status.successBuilder()
-                .addDataValue(storeService.insert(postMapper))
+                .addDataValue(businessService.insert(postMapper))
                 .map();
     }
 
@@ -102,10 +104,10 @@ public class StoreController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Store> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Business> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Store postMapper : postMappers) {
-            insertMapList.add(storeService.insert(postMapper));
+        for (Business postMapper : postMappers) {
+            insertMapList.add(businessService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -125,13 +127,13 @@ public class StoreController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Store updateMapper) {
+    public Map<String, Object> patch(@RequestBody Business updateMapper) {
         return Status.successBuilder()
-                .addDataValue(storeService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(businessService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthGroup(value = {"super","admin"},logical = Logical.OR)
     @ApiOperation(
             value = "删除实体",
             notes = "删除实体"
@@ -146,11 +148,11 @@ public class StoreController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(storeService.deleteByPrimaryKey(entityKey))
+                .addDataValue(businessService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
-    @AuthGroup("admin")
+    @AuthGroup(value = {"super","admin"},logical = Logical.AND)
     @ApiOperation(
             value = "删除一组实体",
             notes = "删除一组实体"
@@ -166,11 +168,10 @@ public class StoreController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(storeService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(businessService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())
                 .map();
     }
-
 }

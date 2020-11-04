@@ -1,4 +1,4 @@
-package cn.edu.whu.huaqi_2020.web;
+package cn.edu.whu.huaqi_2020.web.controller;
 
 import cc.eamon.open.auth.AuthExpression;
 import cc.eamon.open.auth.AuthGroup;

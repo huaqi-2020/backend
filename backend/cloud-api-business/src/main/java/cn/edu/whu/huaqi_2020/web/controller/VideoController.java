@@ -1,9 +1,9 @@
-package cn.edu.whu.huaqi_2020.web;
+package cn.edu.whu.huaqi_2020.web.controller;
 
 import cc.eamon.open.auth.AuthGroup;
 import cc.eamon.open.status.Status;
-import cn.edu.whu.huaqi_2020.entities.business.Owner;
-import cn.edu.whu.huaqi_2020.service.impl.OwnerService;
+import cn.edu.whu.huaqi_2020.entities.business.Video;
+import cn.edu.whu.huaqi_2020.service.impl.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +22,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2020/10/26 16:15
  **/
 @Api(
-        value = "UP主模块",
-        tags = "UP主模块"
+        value = "影视作品模块",
+        tags = "影视作品模块"
 )
 @RestController
-@RequestMapping("api/owner")
+@RequestMapping("api/video")
 
-public class OwnerController {
+public class VideoController {
 
     @Autowired
-    private OwnerService ownerService;
+    private VideoService videoService;
 
     @AuthGroup("admin")
     @ApiOperation(
-            value = "查询UP主信息",
-            notes = "查询UP主信息"
+            value = "查询影视作品信息",
+            notes = "查询影视作品信息"
     )
     @Transactional(
             rollbackFor = Exception.class
@@ -45,27 +45,9 @@ public class OwnerController {
             value = "",
             method = RequestMethod.GET
     )
-    public Map<String, Object> fetchOwner(@RequestParam("id") String id){
+    public Map<String, Object> fetchVideo(@RequestParam("id") String id){
         return Status.successBuilder()
-                .addDataValue(ownerService.selectByPrimaryKey(id))
-                .map();
-    }
-
-    @AuthGroup("admin")
-    @ApiOperation(
-            value = "查询UP主筛选列表",
-            notes = "查询UP主筛选列表"
-    )
-    @Transactional(
-            rollbackFor = Exception.class
-    )
-    @RequestMapping(
-            value = "filter",
-            method = RequestMethod.POST
-    )
-    public Map<String, Object> fetchOwnerList(@RequestBody Owner owner){
-        return Status.successBuilder()
-                .addDataValue(ownerService.selectByExample(owner))
+                .addDataValue(videoService.selectByPrimaryKey(id))
                 .map();
     }
 
@@ -82,9 +64,27 @@ public class OwnerController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> post(@RequestBody Owner postMapper) {
+    public Map<String, Object> post(@RequestBody Video postMapper) {
         return Status.successBuilder()
-                .addDataValue(ownerService.insert(postMapper))
+                .addDataValue(videoService.insert(postMapper))
+                .map();
+    }
+
+    @AuthGroup("admin")
+    @ApiOperation(
+            value = "查询影视作品筛选列表",
+            notes = "查询影视作品筛选列表"
+    )
+    @Transactional(
+            rollbackFor = Exception.class
+    )
+    @RequestMapping(
+            value = "filter",
+            method = RequestMethod.POST
+    )
+    public Map<String, Object> fetchVideoList(@RequestBody Video video){
+        return Status.successBuilder()
+                .addDataValue(videoService.selectByExample(video))
                 .map();
     }
 
@@ -101,10 +101,10 @@ public class OwnerController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> postBatch(@RequestBody ArrayList<Owner> postMappers) {
+    public Map<String, Object> postBatch(@RequestBody ArrayList<Video> postMappers) {
         List<Map<String, Object>> insertMapList = new LinkedList<>();
-        for (Owner postMapper : postMappers) {
-            insertMapList.add(ownerService.insert(postMapper));
+        for (Video postMapper : postMappers) {
+            insertMapList.add(videoService.insert(postMapper));
         }
         return Status.successBuilder()
                 .addDataValue(insertMapList)
@@ -124,9 +124,9 @@ public class OwnerController {
             rollbackFor = Exception.class
     )
     @ResponseBody
-    public Map<String, Object> patch(@RequestBody Owner updateMapper) {
+    public Map<String, Object> patch(@RequestBody Video updateMapper) {
         return Status.successBuilder()
-                .addDataValue(ownerService.updateByPrimaryKeySelective(updateMapper))
+                .addDataValue(videoService.updateByPrimaryKeySelective(updateMapper))
                 .map();
     }
 
@@ -145,7 +145,7 @@ public class OwnerController {
     @ResponseBody
     public Map<String, Object> delete(@RequestParam("entityKey") String entityKey) {
         return Status.successBuilder()
-                .addDataValue(ownerService.deleteByPrimaryKey(entityKey))
+                .addDataValue(videoService.deleteByPrimaryKey(entityKey))
                 .map();
     }
 
@@ -165,7 +165,7 @@ public class OwnerController {
     public Map<String, Object> deleteBatch(@RequestParam("entityKeys") ArrayList<String> entityKeys) {
         AtomicInteger count = new AtomicInteger();
         for (String entityKey : entityKeys) {
-            count.addAndGet(ownerService.deleteByPrimaryKey(entityKey));
+            count.addAndGet(videoService.deleteByPrimaryKey(entityKey));
         }
         return Status.successBuilder()
                 .addDataValue(count.get())
