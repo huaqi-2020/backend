@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,9 @@ public interface BusinessSpecial1Facade {
     //TODO 目前只支持date计算时间序列
     List<Map<String, Object>> getBusinessSpecial1FilterMap(@RequestBody BusinessSpecial1 businessSpecial1);
 
+    @RequestMapping(
+            value = "data",
+            method = RequestMethod.GET
+    )
+    Map<String, Object> getBusinessSpecial1(@RequestParam("id") String id);
 }
