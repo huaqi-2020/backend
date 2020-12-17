@@ -25,4 +25,9 @@ public class AuthAdvice extends cc.eamon.open.auth.advice.AuthAdvice {
     public boolean checkGroup(HttpServletRequest request, HttpServletResponse response, String uri, String group) {
         return "super".equals(group) || "admin".equals(group);
     }
+
+    @Override
+    public boolean checkExpression(HttpServletRequest request, HttpServletResponse response, String uri, String expression, boolean expressionResult) {
+        return expressionResult;
+    }
 }

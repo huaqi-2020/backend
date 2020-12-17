@@ -2,10 +2,13 @@ package cn.edu.whu.huaqi_2020.service;
 
 import cc.eamon.open.status.Status;
 import cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial1;
+import cn.edu.whu.huaqi_2020.entities.user.User;
 import cn.edu.whu.huaqi_2020.web.facade.BusinessSpecial1Facade;
+import cn.edu.whu.huaqi_2020.web.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +20,12 @@ import java.util.Map;
 @Service
 public class BusinessDataCalculateService {
 
-    @Autowired
+    //不能根据名字识别，只能通过编译后的字节码检查类型注入
+    @Resource
     private BusinessSpecial1Facade businessSpecial1Facade;
+
+    @Resource
+    private UserFacade userFacade;
 
     /**
      * 计算圈子1时间序列值
@@ -26,10 +33,8 @@ public class BusinessDataCalculateService {
      * @return
      */
     public Map<String, Object> calculateBusinessSpecial1(BusinessSpecial1 businessSpecial1){
-        List<Map<String, Object>> businessSpecial1FilterMap = businessSpecial1Facade.getBusinessSpecial1FilterMap(businessSpecial1);
-        //test
         return Status.successBuilder()
-                .addDataValue(businessSpecial1FilterMap)
+                .addDataValue(businessSpecial1Facade.getBusinessSpecial1FilterMap(businessSpecial1))
                 .map();
     }
 }

@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableKnife4j
 public class CalculateMain {
-
     public static void main(String[] args) {
         SpringApplication.run(CalculateMain.class,args);
     }

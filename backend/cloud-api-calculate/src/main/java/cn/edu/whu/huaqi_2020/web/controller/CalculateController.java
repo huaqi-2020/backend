@@ -1,13 +1,20 @@
 package cn.edu.whu.huaqi_2020.web.controller;
 
+import cc.eamon.open.auth.AuthExpression;
+import cc.eamon.open.auth.AuthGroup;
+import cc.eamon.open.status.Status;
 import cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial1;
+import cn.edu.whu.huaqi_2020.entities.user.User;
 import cn.edu.whu.huaqi_2020.service.BusinessDataCalculateService;
+import cn.edu.whu.huaqi_2020.web.facade.BusinessSpecial1Facade;
+import cn.edu.whu.huaqi_2020.web.facade.UserFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -25,20 +32,20 @@ public class CalculateController {
     @Autowired
     private BusinessDataCalculateService businessDataCalculateService;
 
-//    @AuthExpression("userId==id")
-    //不具有传递性
+    //已解决header传递性
+//    @AuthExpression("id==bid")
+    @AuthGroup("admin")
     @ApiOperation(
-            value = "计算圈子1数据",
-            notes = "计算圈子1数据"
+            value = "test",
+            notes = "test"
     )
     @RequestMapping(
-            value = "businessSpecial1Data",
-            method = RequestMethod.POST
+            value = "data",
+            method = RequestMethod.GET
     )
     @Transactional
-    @ResponseBody
-    public Map<String,Object> calculateBusinessSpecial1Data(@RequestBody BusinessSpecial1 businessSpecial1){
-        return businessDataCalculateService.calculateBusinessSpecial1(businessSpecial1);
+    public Map<String,Object> getBusinessSpecial1Data(@RequestParam("id") String id){
+        return businessDataCalculateService.calculateBusinessSpecial1(new BusinessSpecial1(Integer.valueOf(id),null,null,null,null,null));
     }
 
 }

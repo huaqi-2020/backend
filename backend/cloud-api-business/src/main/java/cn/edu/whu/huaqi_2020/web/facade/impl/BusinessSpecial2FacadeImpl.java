@@ -1,5 +1,6 @@
-package cn.edu.whu.huaqi_2020.web.facade;
+package cn.edu.whu.huaqi_2020.web.facade.impl;
 
+import cc.eamon.open.auth.AuthGroup;
 import cn.edu.whu.huaqi_2020.entities.business.BusinessSpecial2;
 import cn.edu.whu.huaqi_2020.service.impl.BusinessSpecial2Service;
 import io.swagger.annotations.Api;
@@ -30,6 +31,7 @@ public class BusinessSpecial2FacadeImpl {
     @Autowired
     private BusinessSpecial2Service businessSpecial2Service;
 
+    @AuthGroup("admin")
     @ApiOperation(
             value = "查询圈子分类2数据筛选列表",
             notes = "查询圈子分类2数据筛选列表"
@@ -41,7 +43,7 @@ public class BusinessSpecial2FacadeImpl {
             value = "filter",
             method = RequestMethod.POST
     )
-    public List<Map<String, Object>> fetchBusinessSpecial1List(@RequestBody BusinessSpecial2 businessSpecial2){
+    public List<Map<String, Object>> getBusinessSpecial2FilterMap(@RequestBody BusinessSpecial2 businessSpecial2){
         return businessSpecial2Service.selectByExample(businessSpecial2);
     }
 }

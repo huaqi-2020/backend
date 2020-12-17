@@ -29,7 +29,6 @@ public class BusinessSpecial1FacadeImpl {
     @Autowired
     private BusinessSpecial1Service businessSpecial1Service;
 
-    @AuthExpression("id==userId")
     @AuthGroup("admin")
     @ApiOperation(
             value = "查询圈子分类1数据筛选列表",
@@ -42,15 +41,15 @@ public class BusinessSpecial1FacadeImpl {
             value = "filter",
             method = RequestMethod.POST
     )
-    public List<Map<String, Object>> getBusinessSpecial1List(@RequestBody BusinessSpecial1 businessSpecial1){
+    public List<Map<String, Object>> getBusinessSpecial1FilterMap(@RequestBody BusinessSpecial1 businessSpecial1){
         return businessSpecial1Service.selectByExample(businessSpecial1);
     }
 
     @AuthExpression("id==userId")
     @AuthGroup("admin")
     @ApiOperation(
-            value = "test request param",
-            notes = "test request param"
+            value = "获取指定id数据",
+            notes = "获取指定id数据"
     )
     @Transactional(
             rollbackFor = Exception.class
