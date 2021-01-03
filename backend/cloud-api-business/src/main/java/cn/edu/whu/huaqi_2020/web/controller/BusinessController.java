@@ -33,9 +33,6 @@ public class BusinessController {
     @Autowired
     private BusinessService businessService;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
 //    @AuthExpression("userId != nil")
     @ApiOperation(
             value = "查询圈子",

@@ -2,7 +2,6 @@ eureka:
   client:
     enabled: false
 
-
 logging:
   level:
     cn.edu.whu.huaqi_2020: debug

@@ -17,7 +17,7 @@ public class AuthAdvice extends cc.eamon.open.auth.advice.AuthAdvice {
 
 
     @Override
-    public boolean open() {
+    public boolean open(HttpServletRequest request, HttpServletResponse response) {
         return true;
     }
 

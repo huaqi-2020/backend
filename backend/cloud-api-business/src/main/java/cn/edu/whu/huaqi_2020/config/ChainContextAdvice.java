@@ -1,10 +1,10 @@
 package cn.edu.whu.huaqi_2020.config;
 
-import cc.eamon.open.chain.ChainContextHolder;
 import cc.eamon.open.chain.interceptor.support.FeignChainContextRequestInterceptor;
-import cc.eamon.open.chain.processor.ChainKeyEnum;
+import cc.eamon.open.chain.parser.metadata.ChainKeyParserMetadata;
+import cc.eamon.open.chain.processor.metadata.ChainKeyProcessorMetadata;
 import cc.eamon.open.chain.temp.ChainContextHandlerInterceptor;
-import org.springframework.context.annotation.Bean;
+import cn.edu.whu.huaqi_2020.entities.user.User;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,10 +26,7 @@ public class ChainContextAdvice extends FeignChainContextRequestInterceptor impl
 
     @Override
     public void parseChainContext() {
-//        Object v1 = ChainContextHolder.get(ChainKeyEnum.SPAN_ID);
-//        if(v1 == null)return;
-//        ChainContextHolder.put(ChainKeyEnum.PARENT_ID,v1);
-        //parse else
+
     }
 
     @Override

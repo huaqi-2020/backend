@@ -2,15 +2,18 @@ package cn.edu.whu.huaqi_2020.config;
 
 import cc.eamon.open.chain.ChainContextHolder;
 import cc.eamon.open.chain.interceptor.support.FeignChainContextRequestInterceptor;
-import cc.eamon.open.chain.parser.ChainKeyParser;
+import cc.eamon.open.chain.parser.map.UserGenericMap;
+import cc.eamon.open.chain.parser.metadata.GenericChainKeyParserMetadata;
 import cc.eamon.open.chain.temp.ChainContextHandlerInterceptor;
-import cn.edu.whu.huaqi_2020.entities.user.User;
+import cn.edu.whu.huaqi_2020.common.chain.ChainConst;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author: Zhu yuhan
@@ -20,6 +23,7 @@ import java.util.Date;
 @Configuration
 public class ChainContextAdvice extends FeignChainContextRequestInterceptor implements WebMvcConfigurer {
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ChainContextHandlerInterceptor());
@@ -27,27 +31,26 @@ public class ChainContextAdvice extends FeignChainContextRequestInterceptor impl
 
     @Override
     public void parseChainContext() {
-        //test
-        ChainContextHolder.put("abc","123456");
-        parseChainContext("abc", "CHAIN-DATE-cde", Date.class, new ChainKeyParser() {
-            @Override
-            public String encodeChainContext(Object chainContext) {
-                return chainContext.toString();
-            }
-
-            @Override
-            public Object decodeChainContext(String temp) {
-                return new Date(Long.parseLong(temp));
-            }
-        });
+//        ChainKeyParserInstance.addChainKeyParser(new ChainKeyParserInstance("USER", User.class, new ParserProcessor()));
     }
 
     @Override
     public void addChainContext(HttpServletRequest httpServletRequest) {
         //add into chainContext or requestAttr
 //        httpServletRequest.setAttribute(xxx,xxx);
-        ChainContextHolder.put("CHAIN-JSON", new User("123456"));
         ChainContextHolder.put("CHAIN-STRING", "123456");
+        Map<String, String> defaultMap = new HashMap<>();
+        defaultMap.put("a", "123");
+        defaultMap.put("b", "456");
+        ChainContextHolder.put(ChainConst.CHAIN_KEY_PREFIX + ChainConst.CHAIN_DEFAULT_MAP, defaultMap);
+        UserGenericMap<String, Date> userGenericMap = new UserGenericMap<String, Date>() {
+            @Override
+            protected GenericChainKeyParserMetadata.GenericMetadata genericMetadata() {
+                return new GenericChainKeyParserMetadata.GenericMetadata(String.class, Date.class);
+            }
+        };
+        userGenericMap.put("a", new Date(123L));
+        ChainContextHolder.put(ChainConst.CHAIN_KEY_PREFIX + ChainConst.CHAIN_STRING_DATE_MAP, userGenericMap);
     }
 
     @Override
