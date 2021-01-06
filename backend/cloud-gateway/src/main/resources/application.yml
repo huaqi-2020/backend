@@ -10,21 +10,22 @@ spring:
     gateway:
       routes:
         #路由id唯一即可
-#        - id: provider_news_route
-#          uri: http://localhost:8088
-#          predicates:
-#            - Path=/
+        - id: api_calculate_route
+          uri: lb://cloud-api-calculate
+          predicates:
+            - Path=/api/calculate/**
+
+        - id: api_business_route
+          #路由转发
+          uri: lb://cloud-api-business
+          predicates:
+            - Path=/api/business/**
 
         - id: api_user_route
-          #路由转发
-          uri: http://localhost:5088
+            #路由转发
+          uri: lb://cloud-api-user
           predicates:
             - Path=/api/user/**
-
-#        - id: provider_user_route
-#          uri: http://localhost:8099
-#          predicates:
-#            - Path=/
 
 eureka:
   client:
@@ -32,7 +33,7 @@ eureka:
     fetch-registry: true
     service-url:
       #注册服务中心url
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://localhost:10096/eureka
   #服务实例名称
   instance:
     instance-id: getway-${server.port}

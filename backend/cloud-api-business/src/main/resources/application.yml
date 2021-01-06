@@ -21,7 +21,7 @@ eureka:
     fetch-registry: true
     service-url:
       #注册服务中心url
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://localhost:10096/eureka
     should-enforce-registration-at-init: true
   instance:
     #实例名称

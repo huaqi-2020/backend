@@ -32,7 +32,9 @@ public class CalculateController {
     @Autowired
     private BusinessDataCalculateService businessDataCalculateService;
 
-    //已解决header传递性
+    @Autowired
+    private BusinessSpecial1Facade businessSpecial1Facade;
+
 //    @AuthExpression("id==bid")
     @AuthGroup("admin")
     @ApiOperation(
@@ -46,6 +48,20 @@ public class CalculateController {
     @Transactional
     public Map<String,Object> getBusinessSpecial1Data(@RequestParam("id") String id){
         return businessDataCalculateService.calculateBusinessSpecial1(new BusinessSpecial1(Integer.valueOf(id),null,null,null,null,null));
+    }
+
+    @AuthGroup("admin")
+    @ApiOperation(
+            value = "test2",
+            notes = "test2"
+    )
+    @RequestMapping(
+            value = "data2",
+            method = RequestMethod.GET
+    )
+    @Transactional
+    public Map<String,Object> getBusinessSpecial1(@RequestParam("id") String id){
+        return businessSpecial1Facade.getBusinessSpecial1(id);
     }
 
 }

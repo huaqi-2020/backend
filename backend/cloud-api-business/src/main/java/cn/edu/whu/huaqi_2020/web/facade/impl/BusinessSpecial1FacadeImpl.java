@@ -29,6 +29,7 @@ public class BusinessSpecial1FacadeImpl {
     @Autowired
     private BusinessSpecial1Service businessSpecial1Service;
 
+    @AuthExpression("id==userId")
     @AuthGroup("admin")
     @ApiOperation(
             value = "查询圈子分类1数据筛选列表",
@@ -45,7 +46,7 @@ public class BusinessSpecial1FacadeImpl {
         return businessSpecial1Service.selectByExample(businessSpecial1);
     }
 
-    @AuthExpression("id==userId")
+    @AuthExpression("id==cookie$userId")
     @AuthGroup("admin")
     @ApiOperation(
             value = "获取指定id数据",
